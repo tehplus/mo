@@ -125,21 +125,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 // ارسال اطلاعات به سرور
                 const formData = new FormData(registerForm);
                 
-                fetch('?page=register', {
-                    method: 'POST',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Accept': 'application/json'
-                    },
-                    body: formData
-                })
-                fetch('?page=register', {
-                    method: 'POST',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    body: formData
-                })
+           fetch('?page=register', {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                },
+                body: formData
+            })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {

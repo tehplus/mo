@@ -8,6 +8,9 @@
  */
 
 session_start();
+if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+    header('Content-Type: application/json');
+}
 date_default_timezone_set('Asia/Tehran');
 
 // تنظیمات پایه
@@ -54,7 +57,10 @@ if ($is_public) {
             break;
             
         case 'register':
-            if (file_exists('pages/auth/register.php')) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+                require_once 'includes/auth/register_handler.php';
+                exit;
+            } else if (file_exists('pages/auth/register.php')) {
                 require_once 'pages/auth/register.php';
             } else {
                 die('خطا: صفحه ثبت نام یافت نشد.');

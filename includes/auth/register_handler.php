@@ -1,4 +1,6 @@
 <?php
+if (!defined('BASE_PATH')) exit('No direct script access allowed');
+error_log('Register Handler Called: ' . print_r($_POST, true));
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $response = ['success' => false, 'message' => ''];
     

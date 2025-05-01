@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 // تنظیمات پایه
 define('BASE_PATH', dirname(__DIR__));
 define('BASE_URL', 'http://localhost/mo');
@@ -15,3 +17,6 @@ $config = [
     'auth_pages' => ['login', 'register', 'forgot-password'],
     'require_auth' => true
 ];
+
+// تنظیمات زمانی
+date_default_timezone_set('Asia/Tehran');

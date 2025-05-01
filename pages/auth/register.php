@@ -1,5 +1,15 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+session_start();
+
+// اگر کاربر قبلاً لاگین کرده است
+if (isset($_SESSION['user_id'])) {
+    header('Location: index.php');
+    exit;
+}
+
+// پردازش فرم ثبت نام
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+    strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
     require_once 'config/database.php';
     $database = new Database();
     $db = $database->getConnection();
@@ -7,17 +17,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $response = ['success' => false, 'message' => ''];
     
     try {
-        // بررسی اعتبار داده‌ها
+        // دریافت و پاکسازی داده‌ها
+        $fullName = filter_input(INPUT_POST, 'fullName', FILTER_SANITIZE_STRING);
         $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         $password = $_POST['password'];
-        $confirm_password = $_POST['confirm_password'];
+        $confirmPassword = $_POST['confirmPassword'];
         
-        if (empty($username) || empty($email) || empty($password)) {
+        // اعتبارسنجی داده‌ها
+        if (empty($fullName) || empty($username) || empty($email) || empty($password)) {
             throw new Exception('لطفاً تمام فیلدها را پر کنید.');
         }
         
-        if ($password !== $confirm_password) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception('لطفاً یک ایمیل معتبر وارد کنید.');
+        }
+        
+        if ($password !== $confirmPassword) {
             throw new Exception('رمز عبور و تکرار آن مطابقت ندارند.');
         }
         
@@ -33,14 +49,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception('این نام کاربری یا ایمیل قبلاً ثبت شده است.');
         }
         
-        // ثبت کاربر جدید
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        // ذخیره کاربر جدید
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         
-        $stmt = $db->prepare("INSERT INTO users (username, email, password, created_at) VALUES (?, ?, ?, NOW())");
-        $stmt->execute([$username, $email, $hashed_password]);
-        
-        $response['success'] = true;
-        $response['message'] = 'ثبت نام با موفقیت انجام شد. لطفاً وارد شوید.';
+        $stmt = $db->prepare("INSERT INTO users (full_name, username, email, password, created_at) VALUES (?, ?, ?, ?, NOW())");
+        if ($stmt->execute([$fullName, $username, $email, $hashedPassword])) {
+            $response['success'] = true;
+            $response['message'] = 'ثبت نام با موفقیت انجام شد.';
+        } else {
+            throw new Exception('خطا در ثبت اطلاعات.');
+        }
         
     } catch (Exception $e) {
         $response['message'] = $e->getMessage();
@@ -50,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo json_encode($response);
     exit;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -57,65 +76,99 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ثبت نام | سیستم حسابداری</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+    
+    <!-- فونت‌آوسام -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- بوت‌استرپ -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+    <!-- استایل‌های سفارشی -->
     <link rel="stylesheet" href="assets/css/auth.css">
+    <!-- SweetAlert2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body class="auth-page">
     <div class="auth-container">
         <div class="auth-card">
             <div class="auth-header">
-                <h1>ثبت نام در سیستم</h1>
-                <p>برای ایجاد حساب کاربری، فرم زیر را تکمیل کنید</p>
+                <img src="assets/img/logo.png" alt="Logo" class="auth-logo">
+                <h1 class="auth-title">ثبت نام در سیستم</h1>
+                <p class="auth-subtitle">برای استفاده از امکانات سیستم، لطفاً ثبت نام کنید</p>
             </div>
             
-            <form id="registerForm" class="auth-form">
+            <form id="registerForm" class="auth-form" novalidate>
+                <!-- نام و نام خانوادگی -->
+                <div class="form-group">
+                    <label for="fullName">نام و نام خانوادگی</label>
+                    <input type="text" id="fullName" name="fullName" class="form-control" 
+                           required autocomplete="name">
+                    <div class="error-feedback"></div>
+                </div>
+                
+                <!-- نام کاربری -->
                 <div class="form-group">
                     <label for="username">نام کاربری</label>
-                    <input type="text" id="username" name="username" class="form-control" required>
+                    <input type="text" id="username" name="username" class="form-control" 
+                           required autocomplete="username">
+                    <div class="error-feedback"></div>
                 </div>
                 
+                <!-- ایمیل -->
                 <div class="form-group">
                     <label for="email">ایمیل</label>
-                    <input type="email" id="email" name="email" class="form-control" required>
+                    <input type="email" id="email" name="email" class="form-control" 
+                           required autocomplete="email">
+                    <div class="error-feedback"></div>
                 </div>
                 
+                <!-- رمز عبور -->
                 <div class="form-group">
                     <label for="password">رمز عبور</label>
-                    <div class="password-input">
-                        <input type="password" id="password" name="password" class="form-control" required>
-                        <i class="fas fa-eye password-toggle"></i>
+                    <div class="password-field">
+                        <input type="password" id="password" name="password" class="form-control" 
+                               required autocomplete="new-password">
+                        <span class="password-toggle">
+                            <i class="fas fa-eye"></i>
+                        </span>
                     </div>
+                    <div class="error-feedback"></div>
                 </div>
                 
+                <!-- تکرار رمز عبور -->
                 <div class="form-group">
-                    <label for="confirm_password">تکرار رمز عبور</label>
-                    <div class="password-input">
-                        <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
-                        <i class="fas fa-eye password-toggle"></i>
+                    <label for="confirmPassword">تکرار رمز عبور</label>
+                    <div class="password-field">
+                        <input type="password" id="confirmPassword" name="confirmPassword" 
+                               class="form-control" required autocomplete="new-password">
+                        <span class="password-toggle">
+                            <i class="fas fa-eye"></i>
+                        </span>
                     </div>
+                    <div class="error-feedback"></div>
                 </div>
                 
-                <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="terms" required>
-                        <label class="custom-control-label" for="terms">
-                            با <a href="#" target="_blank">قوانین و مقررات</a> موافقم
-                        </label>
-                    </div>
-                </div>
+                <!-- قوانین و مقررات -->
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <span class="checkmark"></span>
+                    <span class="text">با <a href="#" target="_blank">قوانین و مقررات</a> موافقم</span>
+                </label>
                 
-                <button type="submit" class="btn btn-primary btn-block">ثبت نام</button>
+                <!-- دکمه ثبت نام -->
+                <button type="submit" class="btn btn-primary">
+                    <span class="loading-spinner"></span>
+                    <span class="btn-text">ثبت نام</span>
+                </button>
             </form>
             
             <div class="auth-footer">
-                <p>قبلاً ثبت نام کرده‌اید؟ <a href="?page=login">وارد شوید</a></p>
+                <p>قبلاً ثبت نام کرده‌اید؟ <a href="?page=login">ورود به سیستم</a></p>
             </div>
         </div>
     </div>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <!-- اسکریپت‌ها -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/auth.js"></script>
 </body>

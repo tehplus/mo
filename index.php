@@ -1,6 +1,4 @@
-<?php
-require_once 'router.php';
-?>
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>

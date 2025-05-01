@@ -1,92 +1,83 @@
 <?php
+/**
+ * مسیریاب اصلی برنامه
+ * 
+ * @author tehplus
+ * @version 1.0.0
+ * @since 2025-05-01
+ */
+
 session_start();
 date_default_timezone_set('Asia/Tehran');
 
-// مسیر اصلی پروژه
-define('BASE_PATH', __DIR__);
-
 // تنظیمات پایه
-$config = [
-    'default_page' => 'dashboard',
-    'auth_pages' => ['login', 'register', 'forgot-password'],
-    'require_auth' => true
+define('BASE_PATH', __DIR__);
+define('BASE_URL', '/mo');
+define('APP_NAME', 'سیستم حسابداری هوشمند');
+
+// لیست صفحات مجاز برای دسترسی عمومی
+$public_pages = [
+    'home',    // صفحه اصلی لندینگ
+    'login',   // ورود
+    'register' // ثبت نام
 ];
 
 // دریافت صفحه درخواستی
-$page = isset($_GET['page']) ? $_GET['page'] : $config['default_page'];
+$page = isset($_GET['page']) ? strtolower(trim($_GET['page'])) : 'home';
 
-// بررسی دسترسی و احراز هویت
-if ($config['require_auth'] && !in_array($page, $config['auth_pages']) && !isset($_SESSION['user_id'])) {
-    header('Location: ?page=login');
+// حذف کاراکترهای غیرمجاز از نام صفحه
+$page = preg_replace('/[^a-z0-9\-_]/', '', $page);
+
+// اگر صفحه خالی شد
+if (empty($page)) {
+    $page = 'home';
+}
+
+// اگر صفحه عمومی نیست و کاربر لاگین نکرده
+if (!in_array($page, $public_pages) && !isset($_SESSION['user_id'])) {
+    header('Location: ' . BASE_URL . '/?page=login');
     exit;
 }
-?>
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سیستم حسابداری</title>
-    <!-- Bootstrap RTL -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- AdminLTE RTL -->
-    <link href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.rtl.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <!-- SweetAlert2 -->
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-</head>
-<body class="hold-transition sidebar-mini">
-<?php if (!in_array($page, $config['auth_pages'])): ?>
-<div class="wrapper">
-    <?php 
+
+// بررسی نوع صفحه (عمومی یا داشبورد)
+$is_public_page = in_array($page, $public_pages);
+
+// تنظیم متغیرهای قالب
+$meta = [
+    'title' => APP_NAME,
+    'description' => 'سیستم حسابداری آنلاین برای کسب و کارهای کوچک و متوسط',
+];
+
+// انتخاب قالب مناسب
+if ($is_public_page) {
+    switch ($page) {
+        case 'home':
+            require_once 'pages/home.php';
+            exit;
+            
+        case 'login':
+        case 'register':
+            // اگر کاربر لاگین کرده بود
+            if (isset($_SESSION['user_id'])) {
+                header('Location: ' . BASE_URL . '/?page=dashboard');
+                exit;
+            }
+            require_once "pages/auth/{$page}.php";
+            exit;
+    }
+} else {
+    // لود قالب پنل مدیریت
     include_once 'includes/header.php';
     include_once 'includes/sidebar.php';
-    ?>
     
-    <!-- محتوای اصلی -->
-    <div class="content-wrapper">
-<?php endif; ?>
-
-<?php
-// مسیریابی صفحات
-switch ($page) {
-    case 'login':
-        require_once 'pages/auth/login.php';
-        break;
-        
-    case 'register':
-        require_once 'pages/auth/register.php';
-        break;
-        
-    case 'dashboard':
-        require_once 'pages/dashboard/index.php';
-        break;
-        
-        
-    case 'profile':
-        require_once 'pages/profile/index.php';
-        break;
-        
-    case 'transactions':
-        require_once 'pages/transactions/index.php';
-        break;
-        
-    case 'invoices':
-        require_once 'pages/invoices/index.php';
-        break;
-        
-    case 'reports':
-        require_once 'pages/reports/index.php';
-        break;
-        
-    case 'settings':
-        require_once 'pages/settings/index.php';
-        break;
-        
-    default:
+    echo '<div class="content-wrapper">';
+    
+    // لود صفحه درخواستی
+    $page_path = "pages/{$page}/index.php";
+    if (file_exists($page_path)) {
+        require_once $page_path;
+    } else {
+        // صفحه 404
         echo '<div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
@@ -96,27 +87,9 @@ switch ($page) {
                     </div>
                 </div>
             </div>';
-        break;
+    }
+    
+    echo '</div><!-- /.content-wrapper -->';
+    
+    include_once 'includes/footer.php';
 }
-?>
-
-<?php if (!in_array($page, $config['auth_pages'])): ?>
-    </div><!-- /.content-wrapper -->
-    <?php include_once 'includes/footer.php'; ?>
-</div><!-- /.wrapper -->
-<?php endif; ?>
-
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE -->
-<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
-<!-- SweetAlert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- Custom JS -->
-<script src="assets/js/main.js"></script>
-</body>
-</html>

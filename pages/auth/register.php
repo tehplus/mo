@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WI
     require_once BASE_PATH . '/includes/auth/register_handler.php';
     exit;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -92,11 +93,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WI
                 </div>
                 
                 <!-- قوانین و مقررات -->
-                <div class="form-check custom-checkbox mb-4">
-                    <input type="checkbox" id="terms" name="terms" class="form-check-input" required>
-                    <label class="form-check-label" for="terms">
-                        <span>با <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">قوانین و مقررات</a> موافقم</span>
-                    </label>
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+                        <label class="form-check-label" for="terms">
+                            با <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">قوانین و مقررات</a> موافقم
+                        </label>
+                    </div>
                 </div>
                 
                 <!-- دکمه ثبت نام -->
@@ -127,11 +130,70 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WI
             </div>
         </div>
     </div>
+<style>
+.custom-control {
+    position: relative;
+    display: block;
+    min-height: 1.5rem;
+    padding-right: 1.5rem;
+}
 
+.form-check-input {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    width: 1rem;
+    height: 1rem;
+    opacity: 1;
+    cursor: pointer;
+}
+
+.form-check-label {
+    position: relative;
+    margin-bottom: 0;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+/* استایل خاص برای تیک باکس */
+.form-check-input {
+    border: 1px solid #6b7280;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.form-check-input:checked {
+    background-color: #2563eb;
+    border-color: #2563eb;
+}
+
+.form-check-input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+}
+
+/* اضافه کردن فاصله بین تیک باکس و متن */
+.form-check-label {
+    padding-right: 0.5rem;
+}
+</style>
     <!-- اسکریپت‌ها -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="<?php echo BASE_URL; ?>/assets/js/auth.js"></script>
+
+    <script>
+if (!document.getElementById('terms').checked) {
+    Swal.fire({
+        title: 'خطا!',
+        text: 'لطفاً قوانین و مقررات را مطالعه و قبول کنید.',
+        icon: 'error',
+        confirmButtonText: 'باشه'
+    });
+    return false;
+}
+
+    </script>
 </body>
 </html>

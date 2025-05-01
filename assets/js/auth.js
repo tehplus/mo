@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // تابع اعتبارسنجی رمز عبور
     function isValidPassword(password) {
-        // حداقل 8 کاراکتر، شامل حروف بزرگ و کوچک و اعداد
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
         return passwordRegex.test(password);
     }
@@ -60,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // اعتبارسنجی فرم هنگام ارسال
     if (registerForm) {
-        registerForm.addEventListener('submit', function(e) {
+        registerForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             let hasError = false;
             
@@ -95,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const confirmPassword = registerForm.querySelector('#confirmPassword');
             
             if (!isValidPassword(password.value)) {
-                showError(password, 'رمز عبور باید حداقل 8 کاراکتر و شامل حروف بزرگ، کوچک و اعداد باشد');
+                showError(password, 'رمز عبور باید حداقل 8 کاراکتر و شامل حروف بزرگ، کوچک، عدد و کاراکتر خاص باشد');
                 hasError = true;
             }
             
@@ -117,50 +116,53 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             if (!hasError) {
-                // نمایش loading در دکمه
-                const submitBtn = registerForm.querySelector('button[type="submit"]');
-                submitBtn.classList.add('loading');
-                submitBtn.disabled = true;
-                
-                // ارسال اطلاعات به سرور
-                const formData = new FormData(registerForm);
-                
-           fetch(window.location.href, {  // استفاده از URL فعلی
-    method: 'POST',
-    headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Accept': 'application/json'
-    },
-    body: formData
-})
-                .then(response => response.json())
-                .then(data => {
+                try {
+                    // نمایش loading در دکمه
+                    const submitBtn = registerForm.querySelector('button[type="submit"]');
+                    submitBtn.classList.add('loading');
+                    submitBtn.disabled = true;
+                    
+                    // ارسال اطلاعات به سرور
+                    const formData = new FormData(registerForm);
+                    
+                    const response = await fetch('includes/auth/register_handler.php', {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: formData
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    
                     if (data.success) {
-                        Swal.fire({
+                        await Swal.fire({
                             title: 'موفق!',
                             text: 'ثبت نام شما با موفقیت انجام شد',
                             icon: 'success',
                             confirmButtonText: 'باشه'
-                        }).then(() => {
-                            window.location.href = 'login.php';
                         });
+                        window.location.href = '?page=login';
                     } else {
                         throw new Error(data.message || 'خطا در ثبت نام');
                     }
-                })
-                .catch(error => {
-                    console.error('Error:', error); // برای debug
+                } catch (error) {
+                    console.error('Error:', error);
                     Swal.fire({
                         title: 'خطا!',
-                        text: error.message || 'خطایی در ارتباط با سرور رخ داد. لطفاً دوباره تلاش کنید.',
+                        text: error.message || 'خطایی در ارتباط با سرور رخ داد',
                         icon: 'error',
                         confirmButtonText: 'باشه'
                     });
-                })
-                .finally(() => {
+                } finally {
+                    const submitBtn = registerForm.querySelector('button[type="submit"]');
                     submitBtn.classList.remove('loading');
                     submitBtn.disabled = false;
-                });
+                }
             }
         });
         

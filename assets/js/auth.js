@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // تابع اعتبارسنجی رمز عبور
     function isValidPassword(password) {
         // حداقل 8 کاراکتر، شامل حروف بزرگ و کوچک و اعداد
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
         return passwordRegex.test(password);
     }
     
@@ -125,8 +125,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 // ارسال اطلاعات به سرور
                 const formData = new FormData(registerForm);
                 
-                fetch('register.php', {
+                fetch('?page=register', {
                     method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                    },
+                    body: formData
+                })
+                fetch('?page=register', {
+                    method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
                     body: formData
                 })
                 .then(response => response.json())
@@ -145,9 +156,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 })
                 .catch(error => {
+                    console.error('Error:', error); // برای debug
                     Swal.fire({
                         title: 'خطا!',
-                        text: error.message,
+                        text: error.message || 'خطایی در ارتباط با سرور رخ داد. لطفاً دوباره تلاش کنید.',
                         icon: 'error',
                         confirmButtonText: 'باشه'
                     });

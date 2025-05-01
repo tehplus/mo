@@ -10,12 +10,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         $password = $_POST['password'];
-        
+        $confirmPassword = $_POST['confirmPassword'];
+
+        // و بعد از اعتبارسنجی empty ها، این خط رو اضافه کنید:
+        if ($password !== $confirmPassword) {
+            throw new Exception('رمز عبور و تکرار آن مطابقت ندارند.');
+        }
+
         // اعتبارسنجی داده‌ها
         if (empty($fullName) || empty($username) || empty($email) || empty($password)) {
             throw new Exception('لطفاً تمام فیلدها را پر کنید.');
         }
-        
+        // اعتبارسنجی رمز عبور
+        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/', $password)) {
+            throw new Exception('رمز عبور باید حداقل شامل:
+            - 8 کاراکتر
+            - یک حرف بزرگ
+            - یک حرف کوچک
+            - یک عدد
+            - یک کاراکتر خاص (@$!%*?&#) باشد.');
+        }
+        // اعتبارسنجی قوی‌تر رمز عبور
+        if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password)) {
+            throw new Exception('رمز عبور حداقل باید 8 کاراکتر و شامل حداقل یک حرف بزرگ، یک حرف کوچک، یک عدد و یک کاراکتر خاص باشد.');
+        }
+
         // بررسی تکراری نبودن نام کاربری و ایمیل
         $stmt = $db->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
         $stmt->execute([$username, $email]);

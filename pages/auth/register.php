@@ -92,15 +92,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WI
                     <div class="error-feedback"></div>
                 </div>
                 
-                <!-- قوانین و مقررات -->
-                <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
-                        <label class="form-check-label" for="terms">
-                            با <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">قوانین و مقررات</a> موافقم
-                        </label>
-                    </div>
-                </div>
+                <div class="mb-3">
+    <div class="form-check">
+        <input type="checkbox" id="terms" name="terms" class="form-check-input" required>
+        <label class="form-check-label" for="terms">
+            با <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">قوانین و مقررات</a> موافقم
+        </label>
+    </div>
+</div>
                 
                 <!-- دکمه ثبت نام -->
                 <button type="submit" class="btn btn-primary w-100">
@@ -131,50 +130,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WI
         </div>
     </div>
 <style>
-.custom-control {
-    position: relative;
-    display: block;
-    min-height: 1.5rem;
+.form-check {
     padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+.form-check .form-check-input {
+    float: right;
+    margin-right: -1.5rem;
+    margin-left: 0;
 }
 
 .form-check-input {
-    position: absolute;
-    right: 0;
-    z-index: 1;
     width: 1rem;
     height: 1rem;
-    opacity: 1;
-    cursor: pointer;
-}
-
-.form-check-label {
-    position: relative;
-    margin-bottom: 0;
+    margin-top: 0.25rem;
     vertical-align: top;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    appearance: none;
+    print-color-adjust: exact;
     cursor: pointer;
-}
-
-/* استایل خاص برای تیک باکس */
-.form-check-input {
-    border: 1px solid #6b7280;
-    border-radius: 4px;
-    background-color: white;
 }
 
 .form-check-input:checked {
     background-color: #2563eb;
     border-color: #2563eb;
-}
-
-.form-check-input:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
-}
-
-/* اضافه کردن فاصله بین تیک باکس و متن */
-.form-check-label {
-    padding-right: 0.5rem;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
 }
 </style>
     <!-- اسکریپت‌ها -->

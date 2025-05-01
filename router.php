@@ -57,12 +57,17 @@ if ($is_public) {
             break;
             
         case 'register':
-    if (file_exists('pages/auth/register.php')) {
-        require_once 'pages/auth/register.php';
-    } else {
-        die('خطا: صفحه ثبت نام یافت نشد.');
-    }
-    break;
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                require_once 'includes/config.php';
+                require_once 'includes/classes/Database.php';
+                require_once 'includes/auth/register_handler.php';
+                exit;
+            } else if (file_exists('pages/auth/register.php')) {
+                require_once 'pages/auth/register.php';
+            } else {
+                die('خطا: صفحه ثبت نام یافت نشد.');
+            }
+            break;
             
         case 'login':
             if (file_exists('pages/auth/login.php')) {

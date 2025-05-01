@@ -58,9 +58,8 @@ if ($is_public) {
             
         case 'register':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                require_once 'includes/config.php'; // لود کردن تنظیمات
-                require_once 'includes/classes/Database.php'; // لود کردن کلاس دیتابیس
-                require_once 'includes/auth/register_handler.php';
+                require_once BASE_PATH . '/includes/classes/Auth.php';
+                require_once BASE_PATH . '/includes/auth/register_handler.php';
                 exit;
             } else if (file_exists('pages/auth/register.php')) {
                 require_once 'pages/auth/register.php';

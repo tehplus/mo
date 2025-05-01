@@ -125,30 +125,42 @@ document.addEventListener('DOMContentLoaded', function() {
                     // ارسال اطلاعات به سرور
                     const formData = new FormData(registerForm);
                     
-                    const response = await fetch('includes/auth/register_handler.php', {
+                    const response = await fetch('?page=register', {
                         method: 'POST',
                         headers: {
-                            'X-Requested-With': 'XMLHttpRequest'
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'Accept': 'application/json'
                         },
-                        body: formData
+                        body: new URLSearchParams(formData)
                     });
-                    
+
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
-                    
+
                     const data = await response.json();
-                    
+
                     if (data.success) {
                         await Swal.fire({
                             title: 'موفق!',
-                            text: 'ثبت نام شما با موفقیت انجام شد',
+                            text: data.message,
                             icon: 'success',
                             confirmButtonText: 'باشه'
                         });
                         window.location.href = '?page=login';
                     } else {
-                        throw new Error(data.message || 'خطا در ثبت نام');
+                        if (data.errors) {
+                            // نمایش خطاهای اعتبارسنجی
+                            Object.keys(data.errors).forEach(field => {
+                                const input = registerForm.querySelector(`#${field}`);
+                                if (input) {
+                                    showError(input, data.errors[field]);
+                                }
+                            });
+                        } else {
+                            throw new Error(data.message || 'خطا در ثبت نام');
+                        }
                     }
                 } catch (error) {
                     console.error('Error:', error);

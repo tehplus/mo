@@ -1,4 +1,7 @@
-
+<?php
+// فایل اصلی برنامه که فقط router.php را فراخوانی می‌کند
+require_once 'router.php';
+?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -21,8 +24,8 @@
                 <a href="#pricing" class="nav-link">تعرفه‌ها</a>
                 <a href="#testimonials" class="nav-link">نظرات کاربران</a>
                 <a href="#contact" class="nav-link">تماس با ما</a>
-                <a href="?page=login.php" class="nav-link btn btn-secondary">ورود</a>
-                <a href="?page=register" class="nav-link btn btn-primary">ثبت‌نام</a>
+                <a href="?page=login" class="nav-link btn btn-secondary">ورود</a>
+<a href="?page=register" class="nav-link btn btn-primary">ثبت‌نام</a>
             </div>
         </nav>
     </header>

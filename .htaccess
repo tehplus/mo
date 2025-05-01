@@ -1,19 +1,23 @@
 Options -Indexes
 RewriteEngine On
 
-# حذف پسوند PHP
+# مسیر پایه فایل‌های استاتیک
+RewriteCond %{REQUEST_URI} !^/mo/assets/
+RewriteCond %{REQUEST_URI} !^/mo/uploads/
+
+# هدایت همه درخواست‌ها به index.php
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^(.*)$ $1.php [L]
+RewriteRule ^(.*)$ index.php?page=$1 [QSA,L]
 
-# جلوگیری از دسترسی مستقیم به فایل‌های PHP در پوشه includes
-RewriteRule ^includes/ - [F,L]
-
-# جلوگیری از دسترسی به فایل‌های حساس
-<FilesMatch "^\.">
-    Order allow,deny
+# جلوگیری از دسترسی مستقیم به فایل‌های حساس
+<FilesMatch "^(.htaccess|.git|composer.json|README.md)">
+    Order deny,allow
     Deny from all
 </FilesMatch>
+
+# جلوگیری از دسترسی به پوشه‌های حساس
+RedirectMatch 403 ^/mo/(config|includes|vendor)/.*$
 
 # تنظیم هدرهای امنیتی
 <IfModule mod_headers.c>

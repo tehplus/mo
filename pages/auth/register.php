@@ -194,61 +194,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!-- اضافه کردن JavaScript -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // مدیریت نمایش/مخفی کردن رمز عبور
-    document.querySelectorAll('.password-toggle').forEach(toggle => {
-        toggle.addEventListener('click', function() {
-            const input = this.parentElement.querySelector('input');
-            const type = input.getAttribute('type');
-            
-            if (type === 'password') {
-                input.setAttribute('type', 'text');
-                this.classList.replace('fa-eye', 'fa-eye-slash');
-            } else {
-                input.setAttribute('type', 'password');
-                this.classList.replace('fa-eye-slash', 'fa-eye');
-            }
-        });
-    });
-
-    // مدیریت ارسال فرم
-    document.getElementById('registerForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this);
-        
-        fetch('?page=register', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                Swal.fire({
-                    title: 'موفق!',
-                    text: data.message,
-                    icon: 'success',
-                    confirmButtonText: 'باشه'
-                }).then(() => {
-                    window.location.href = '?page=login';
-                });
-            } else {
-                Swal.fire({
-                    title: 'خطا!',
-                    text: data.message,
-                    icon: 'error',
-                    confirmButtonText: 'باشه'
-                });
-            }
-        })
-        .catch(error => {
+// در بخش اسکریپت register.php
+document.getElementById('registerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const submitBtn = this.querySelector('button[type="submit"]');
+    
+    // نمایش loading
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+    
+    fetch('?page=register&action=submit', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
             Swal.fire({
-                title: 'خطا!',
-                text: 'خطا در ارتباط با سرور',
-                icon: 'error',
+                title: 'موفق!',
+                text: data.message,
+                icon: 'success',
                 confirmButtonText: 'باشه'
+            }).then(() => {
+                window.location.href = '?page=login';
             });
+        } else {
+            throw new Error(data.message);
+        }
+    })
+    .catch(error => {
+        Swal.fire({
+            title: 'خطا!',
+            text: error.message || 'خطا در ثبت نام',
+            icon: 'error',
+            confirmButtonText: 'باشه'
         });
+    })
+    .finally(() => {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
     });
 });
 </script>

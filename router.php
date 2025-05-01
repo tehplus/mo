@@ -57,16 +57,12 @@ if ($is_public) {
             break;
             
         case 'register':
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                require_once BASE_PATH . '/includes/classes/Auth.php';
-                require_once BASE_PATH . '/includes/auth/register_handler.php';
-                exit;
-            } else if (file_exists('pages/auth/register.php')) {
-                require_once 'pages/auth/register.php';
-            } else {
-                die('خطا: صفحه ثبت نام یافت نشد.');
-            }
-            break;
+    if (file_exists('pages/auth/register.php')) {
+        require_once 'pages/auth/register.php';
+    } else {
+        die('خطا: صفحه ثبت نام یافت نشد.');
+    }
+    break;
             
         case 'login':
             if (file_exists('pages/auth/login.php')) {

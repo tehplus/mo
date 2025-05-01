@@ -1,7 +1,7 @@
 <?php
+
 /**
  * مسیریاب اصلی برنامه
- * 
  * @author tehplus
  * @version 1.0.0
  * @since 2025-05-01
@@ -14,16 +14,25 @@ date_default_timezone_set('Asia/Tehran');
 define('BASE_PATH', __DIR__);
 define('BASE_URL', '/mo');
 define('APP_NAME', 'سیستم حسابداری هوشمند');
+define('APP_VERSION', '1.0.0');
+
+// متغیرهای سراسری برای قالب
+$meta = [
+    'title' => APP_NAME,
+    'description' => 'سیستم حسابداری آنلاین برای کسب و کارهای کوچک و متوسط'
+];
 
 // لیست صفحات مجاز برای دسترسی عمومی
-$public_pages = [
-    'home',    // صفحه اصلی لندینگ
-    'login',   // ورود
-    'register' // ثبت نام
-];
+$public_pages = ['home', 'register', 'login'];
 
 // دریافت صفحه درخواستی
 $page = isset($_GET['page']) ? strtolower(trim($_GET['page'])) : 'home';
+
+// اگر کاربر لاگین نکرده و صفحه عمومی نیست
+if (!in_array($page, $public_pages) && !isset($_SESSION['user_id'])) {
+    header('Location: ?page=login');
+    exit;
+}
 
 // حذف کاراکترهای غیرمجاز از نام صفحه
 $page = preg_replace('/[^a-z0-9\-_]/', '', $page);
@@ -33,51 +42,44 @@ if (empty($page)) {
     $page = 'home';
 }
 
-// اگر صفحه عمومی نیست و کاربر لاگین نکرده
-if (!in_array($page, $public_pages) && !isset($_SESSION['user_id'])) {
-    header('Location: ' . BASE_URL . '/?page=login');
-    exit;
-}
+// بررسی نوع صفحه
+$is_public = in_array($page, $public_pages);
 
-// بررسی نوع صفحه (عمومی یا داشبورد)
-$is_public_page = in_array($page, $public_pages);
-
-// تنظیم متغیرهای قالب
-$meta = [
-    'title' => APP_NAME,
-    'description' => 'سیستم حسابداری آنلاین برای کسب و کارهای کوچک و متوسط',
-];
-
-// انتخاب قالب مناسب
-if ($is_public_page) {
+// نمایش قالب مناسب
+if ($is_public) {
+    // صفحات عمومی
     switch ($page) {
         case 'home':
             require_once 'pages/home.php';
-            exit;
+            break;
+            
+        case 'register':
+            if (file_exists('pages/auth/register.php')) {
+                require_once 'pages/auth/register.php';
+            } else {
+                die('خطا: صفحه ثبت نام یافت نشد.');
+            }
+            break;
             
         case 'login':
-        case 'register':
-            // اگر کاربر لاگین کرده بود
-            if (isset($_SESSION['user_id'])) {
-                header('Location: ' . BASE_URL . '/?page=dashboard');
-                exit;
+            if (file_exists('pages/auth/login.php')) {
+                require_once 'pages/auth/login.php';
+            } else {
+                die('خطا: صفحه ورود یافت نشد.');
             }
-            require_once "pages/auth/{$page}.php";
-            exit;
+            break;
     }
 } else {
-    // لود قالب پنل مدیریت
+    // صفحات داشبورد
     include_once 'includes/header.php';
     include_once 'includes/sidebar.php';
     
     echo '<div class="content-wrapper">';
     
-    // لود صفحه درخواستی
-    $page_path = "pages/{$page}/index.php";
-    if (file_exists($page_path)) {
-        require_once $page_path;
+    $page_file = "pages/$page/index.php";
+    if (file_exists($page_file)) {
+        require_once $page_file;
     } else {
-        // صفحه 404
         echo '<div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
@@ -89,7 +91,7 @@ if ($is_public_page) {
             </div>';
     }
     
-    echo '</div><!-- /.content-wrapper -->';
+    echo '</div>';
     
     include_once 'includes/footer.php';
 }

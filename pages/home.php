@@ -1,11 +1,19 @@
 <?php
 /**
  * صفحه اصلی (لندینگ)
- * 
  * @author tehplus
  * @version 1.0.0
  * @since 2025-05-01
  */
+
+// اطمینان از تعریف ثابت‌ها
+if (!defined('APP_NAME')) {
+    define('APP_NAME', 'سیستم حسابداری هوشمند');
+}
+
+if (!defined('BASE_URL')) {
+    define('BASE_URL', '/mo');
+}
 
 // تنظیم عنوان صفحه
 $meta['title'] = APP_NAME . ' - صفحه اصلی';

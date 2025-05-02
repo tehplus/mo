@@ -132,13 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     },
                     body: formData
                 })
-                    fetch('?page=register', {
-            method: 'POST',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            body: formData
-        })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
@@ -148,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             icon: 'success',
                             confirmButtonText: 'باشه'
                         }).then(() => {
-                            window.location.href = 'login.php';
+                            window.location.href = '?page=dashboard';
                         });
                     } else {
                         throw new Error(data.message || 'خطا در ثبت نام');
@@ -177,3 +170,78 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+// این قسمت رو به انتهای فایل auth.js اضافه کنید
+// فرم لاگین
+const loginForm = document.getElementById('loginForm');
+if (loginForm) {
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const submitBtn = loginForm.querySelector('button[type="submit"]');
+        
+        // پاک کردن خطاهای قبلی
+        loginForm.querySelectorAll('.form-control').forEach(input => {
+            clearError(input);
+        });
+        
+        // ارسال اطلاعات به سرور
+        const formData = new FormData(loginForm);
+        submitBtn.classList.add('loading');
+        submitBtn.disabled = true;
+        
+        fetch('?page=login', {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = '?page=dashboard';
+            } else if (data.errors) {
+                Object.keys(data.errors).forEach(key => {
+                    const input = loginForm.querySelector(`#${key}`);
+                    if (input) {
+                        showError(input, data.errors[key]);
+                    }
+                });
+            } else {
+                throw new Error(data.message || 'خطا در ورود به سیستم');
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                title: 'خطا!',
+                text: error.message,
+                icon: 'error',
+                confirmButtonText: 'باشه'
+            });
+        })
+        .finally(() => {
+            submitBtn.classList.remove('loading');
+            submitBtn.disabled = false;
+        });
+    });
+    
+    // تغییر نمایش رمز عبور
+    const passwordToggles = loginForm.querySelectorAll('.password-toggle');
+    passwordToggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const input = this.previousElementSibling;
+            const type = input.getAttribute('type');
+            const newType = type === 'password' ? 'text' : 'password';
+            input.setAttribute('type', newType);
+            
+            // تغییر آیکون
+            const icon = this.querySelector('i');
+            if (newType === 'text') {
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    });
+}

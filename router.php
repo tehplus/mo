@@ -13,6 +13,8 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 }
 date_default_timezone_set('Asia/Tehran');
 
+// لود کردن تنظیمات
+require_once 'includes/config.php';
 
 // متغیرهای سراسری برای قالب
 $meta = [

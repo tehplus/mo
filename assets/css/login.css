@@ -1,0 +1,180 @@
+/**
+ * استایل‌های اختصاصی صفحه لاگین
+ */
+
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+}
+
+/* بدنه صفحه */
+body.login-page {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: IRANSans, -apple-system, system-ui;
+}
+
+/* قسمت اصلی لاگین */
+.login-wrapper {
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    margin: auto;
+}
+
+/* باکس لاگین */
+.login-box {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* لوگو */
+.login-logo {
+    text-align: center;
+}
+
+.login-logo img {
+    max-width: 120px;
+    height: auto;
+}
+
+.login-logo h1 {
+    font-size: 1.5rem;
+    color: var(--dark-color);
+    margin-top: 15px;
+}
+
+/* کارت فرم */
+.card {
+    border: none;
+    background: transparent;
+}
+
+.card-title {
+    color: var(--dark-color);
+    font-weight: 600;
+}
+
+/* فیلدهای ورودی */
+.form-control {
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.15);
+}
+
+.input-group-text {
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.input-group-text:hover {
+    background: var(--light-color);
+}
+
+/* دکمه ورود */
+.btn-primary {
+    padding: 12px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+}
+
+/* لینک‌ها */
+a {
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+/* چک‌باکس */
+.form-check-input {
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.form-check-label {
+    cursor: pointer;
+}
+
+/* نمایش/مخفی کردن رمز عبور */
+.password-toggle {
+    background: transparent;
+    border-left: none;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.password-toggle:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/* بازخورد اعتبارسنجی */
+.invalid-feedback {
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+
+/* انیمیشن لودینگ */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading::after {
+    content: "";
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    margin-left: 0.5rem;
+    border: 2px solid #fff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.75s linear infinite;
+}
+
+/* ریسپانسیو */
+@media (max-width: 576px) {
+    .login-box {
+        padding: 20px;
+    }
+    
+    .login-logo img {
+        max-width: 100px;
+    }
+    
+    .login-logo h1 {
+        font-size: 1.25rem;
+    }
+}

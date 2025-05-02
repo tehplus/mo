@@ -69,6 +69,15 @@ try {
             $_SESSION['full_name'] = $user['full_name'];
             $_SESSION['email'] = $user['email'];
             
+            // دریافت دسترسی‌های کاربر از دیتابیس
+            $permissions_query = "SELECT permissions FROM users WHERE id = :user_id";
+            $stmt = $db->prepare($permissions_query);
+            $stmt->execute(['user_id' => $user['id']]);
+            $user_permissions = $stmt->fetchColumn();
+
+            // ذخیره دسترسی‌ها در سشن
+            $_SESSION['permissions'] = $user_permissions ? json_decode($user_permissions, true) : [];
+
             // اگر گزینه مرا به خاطر بسپار انتخاب شده
             if ($remember) {
                 $token = bin2hex(random_bytes(32));

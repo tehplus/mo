@@ -103,7 +103,7 @@
         </div>
 
         <!-- Recent Section -->
-        <div class="recent-section">
+        <main class="main-content">
             <!-- Recent Invoices -->
             <div class="table-card">
                 <div class="table-header">

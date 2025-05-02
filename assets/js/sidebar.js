@@ -1,3 +1,11 @@
+/**
+ * اسکریپت مدیریت سایدبار
+ * 
+ * @author tehplus
+ * @version 1.0.0
+ * @since 2025-05-02 05:52:24
+ */
+
 document.addEventListener('DOMContentLoaded', function() {
     const sidebar = document.getElementById('sidebar');
     const sidebarToggle = document.getElementById('sidebar-toggle');
@@ -125,10 +133,3 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-
-// تابع خروج از سیستم با تأیید
-function confirmLogout() {
-    if (confirm('آیا مطمئن هستید که می‌خواهید از سیستم خارج شوید؟')) {
-        window.location.href = '?page=logout';
-    }
-}

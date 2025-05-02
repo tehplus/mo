@@ -1,0 +1,29 @@
+/* تنظیمات کلی */
+body {
+    background-color: #f4f6f9;
+    font-family: IRANSans, Tahoma, sans-serif !important;
+}
+
+/* کانتینر اصلی */
+.content-wrapper {
+    margin-right: 260px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+/* وقتی سایدبار جمع شده */
+.sidebar.collapsed + .content-wrapper {
+    margin-right: 70px;
+}
+
+/* حالت موبایل */
+@media (max-width: 768px) {
+    .content-wrapper {
+        margin-right: 0;
+        padding: 10px;
+    }
+    
+    .sidebar.collapsed + .content-wrapper {
+        margin-right: 0;
+    }
+}

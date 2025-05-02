@@ -1,8 +1,18 @@
 <?php
+/**
+ * سایدبار اصلی برنامه
+ * 
+ * @author tehplus
+ * @version 1.0.0
+ * @since 2025-05-02 05:52:24
+ */
+
 // دریافت صفحه فعلی
-$current_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+$current_page = $_GET['page'] ?? 'dashboard';
 ?>
+
 <div class="sidebar" id="sidebar">
+    <!-- هدر سایدبار -->
     <div class="sidebar-header">
         <div class="logo">
             <img src="<?php echo BASE_URL; ?>/assets/images/logo.png" alt="<?php echo APP_NAME; ?>">
@@ -12,17 +22,19 @@ $current_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
             <i class="fas fa-bars"></i>
         </button>
     </div>
-    
+
+    <!-- پروفایل کاربر -->
     <div class="sidebar-user">
         <div class="user-image">
-            <img src="<?php echo BASE_URL; ?>/assets/images/user-avatar.png" alt="کاربر">
+            <img src="<?php echo BASE_URL; ?>/assets/images/avatar.png" alt="پروفایل کاربر">
         </div>
         <div class="user-info">
-            <div class="user-name"><?php echo $_SESSION['user_full_name'] ?? 'کاربر'; ?></div>
+            <div class="user-name"><?php echo $_SESSION['user_full_name'] ?? 'کاربر گرامی'; ?></div>
             <div class="user-role">مدیر سیستم</div>
         </div>
     </div>
 
+    <!-- منوی اصلی -->
     <nav class="sidebar-nav">
         <ul class="nav-list">
             <!-- داشبورد -->
@@ -117,7 +129,7 @@ $current_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
 
             <!-- خروج -->
             <li class="nav-item">
-                <a href="?page=logout" class="nav-link">
+                <a href="?page=logout" class="nav-link" onclick="return confirm('آیا مطمئن هستید که می‌خواهید از سیستم خارج شوید؟')">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>خروج</span>
                 </a>
@@ -125,3 +137,6 @@ $current_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
         </ul>
     </nav>
 </div>
+
+<!-- اسکریپت جاوااسکریپت سایدبار -->
+<script src="<?php echo BASE_URL; ?>/assets/js/sidebar.js"></script>

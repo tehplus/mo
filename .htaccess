@@ -1,28 +1,20 @@
-Options -Indexes
 RewriteEngine On
+RewriteBase /mo/
 
-# مسیر پایه فایل‌های استاتیک
-RewriteCond %{REQUEST_URI} !^/mo/assets/
-RewriteCond %{REQUEST_URI} !^/mo/uploads/
-
-# هدایت همه درخواست‌ها به index.php
+# اگر فایل یا دایرکتوری وجود نداشت
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php?page=$1 [QSA,L]
 
-# جلوگیری از دسترسی مستقیم به فایل‌های حساس
-<FilesMatch "^(.htaccess|.git|composer.json|README.md)">
-    Order deny,allow
+# همه درخواست‌ها رو به index.php هدایت کن
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# محافظت از فایل‌های حساس
+<FilesMatch "^\.">
+    Order allow,deny
     Deny from all
 </FilesMatch>
 
-# جلوگیری از دسترسی به پوشه‌های حساس
-RedirectMatch 403 ^/mo/(config|includes|vendor)/.*$
-
-# تنظیم هدرهای امنیتی
-<IfModule mod_headers.c>
-    Header set X-XSS-Protection "1; mode=block"
-    Header set X-Frame-Options "SAMEORIGIN"
-    Header set X-Content-Type-Options "nosniff"
-    Header set Referrer-Policy "strict-origin-when-cross-origin"
-</IfModule>
+<FilesMatch "^(config\.php|router\.php|.*\.sql)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>

@@ -30,6 +30,7 @@ if (file_exists(BASE_PATH . '/includes/auth/functions.php')) {
     require_once BASE_PATH . '/includes/auth/functions.php';
 }
 
+
 // متغیرهای سراسری برای قالب
 $meta = [
     'title' => APP_NAME,
@@ -37,7 +38,7 @@ $meta = [
 ];
 
 // لیست صفحات مجاز برای دسترسی عمومی
-$public_pages = ['home', 'register', 'login', 'dashboard'];
+$public_pages = ['home', 'register', 'login', 'dashboard', 'error'];
 
 // دریافت صفحه درخواستی
 $page = isset($_GET['page']) ? strtolower(trim($_GET['page'])) : (isset($_SESSION['user_id']) ? 'dashboard' : 'home');

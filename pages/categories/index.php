@@ -13,7 +13,8 @@ if (!checkUserPermission('manage_categories')) {
 }
 
 // تنظیم عنوان صفحه
-$pageTitle = 'مدیریت دسته‌بندی‌ها';
+$page_title = 'مدیریت دسته‌بندی‌ها';
+$page_css = 'categories';
 ?>
 
 <!-- شروع محتوای اصلی -->
@@ -161,15 +162,3 @@ $pageTitle = 'مدیریت دسته‌بندی‌ها';
         </div>
     </div>
 </div>
-
-<?php
-// افزودن CSS و JS مورد نیاز
-$page_css = 'categories';
-?>
-
-<script>
-    // تنظیم متغیرهای مورد نیاز
-    const apiEndpoint = '<?php echo BASE_URL; ?>/api/categories.php';
-    const baseUrl = '<?php echo BASE_URL; ?>';
-</script>
-<script src="<?php echo BASE_URL; ?>/assets/js/categories.js"></script>

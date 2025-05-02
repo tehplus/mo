@@ -1,12 +1,7 @@
 /**
  * اسکریپت مدیریت دسته‌بندی‌ها
- * 
- * @author tehplus
- * @version 1.0.0
- * @since 2025-05-02 08:01:16
  */
 
-// منتظر میشیم تا صفحه کامل لود بشه
 document.addEventListener('DOMContentLoaded', function() {
     // مقداردهی اولیه
     initializeTree();
@@ -23,14 +18,8 @@ function initializeTree() {
             'data': {
                 'url': apiEndpoint + '?action=getTree',
                 'dataType': 'json'
-            },
-            'themes': {
-                'name': 'default',
-                'responsive': true
-            },
-            'check_callback': true
-        },
-        'plugins': ['dnd', 'search', 'state']
+            }
+        }
     }).on('select_node.jstree', function(e, data) {
         loadCategoryDetails(data.node.id);
     });

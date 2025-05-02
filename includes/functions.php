@@ -24,6 +24,27 @@ if (!function_exists('createAlert')) {
 }
 
 if (!function_exists('jdate')) {
+
+      /**
+     * ریدایرکت به یک صفحه دیگر
+     *
+     * @param string $page نام صفحه یا آدرس کامل
+     * @param array $params پارامترهای اضافی
+     * @return void
+     */
+    function redirect($page, $params = []) {
+        if (filter_var($page, FILTER_VALIDATE_URL)) {
+            $url = $page;
+        } else {
+            $url = BASE_URL . '/?page=' . $page;
+            if (!empty($params)) {
+                $url .= '&' . http_build_query($params);
+            }
+        }
+        header('Location: ' . $url);
+        exit;
+    }
+
     /**
      * تبدیل تاریخ میلادی به شمسی
      * @param string $format فرمت خروجی

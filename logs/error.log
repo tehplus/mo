@@ -1,120 +1,48 @@
-[02-May-2025 11:33:56 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
-Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(127): require_once()
-#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
-#2 {main}
-  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:33:58 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
-Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(127): require_once()
-#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
-#2 {main}
-  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:33:59 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
-Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(127): require_once()
-#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
-#2 {main}
-  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:34:23 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
-Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(127): require_once()
-#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
-#2 {main}
-  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:34:44 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
-Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(127): require_once()
-#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
-#2 {main}
-  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:35:02 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
-Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(127): require_once()
-#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
-#2 {main}
-  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:36:12 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
-Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(127): require_once()
-#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
-#2 {main}
-  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:36:14 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
-Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(127): require_once()
-#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
-#2 {main}
-  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:36:25 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
-Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(127): require_once()
-#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
-#2 {main}
-  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:36:42 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
-Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(127): require_once()
-#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
-#2 {main}
-  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:37:04 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
-Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(127): require_once()
-#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
-#2 {main}
-  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:40:56 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
-Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(127): require_once()
-#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
-#2 {main}
-  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:40:58 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
-Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(127): require_once()
-#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
-#2 {main}
-  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:41:25 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
-Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(127): require_once()
-#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
-#2 {main}
-  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:42:21 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
-Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(127): require_once()
-#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
-#2 {main}
-  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:43:41 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
+[02-May-2025 11:57:41 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
 Stack trace:
 #0 C:\xampp\htdocs\mo\router.php(121): require_once()
 #1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
 #2 {main}
   thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:43:51 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
+[02-May-2025 12:15:53 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
 Stack trace:
 #0 C:\xampp\htdocs\mo\router.php(121): require_once()
 #1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
 #2 {main}
   thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:43:59 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
+[02-May-2025 12:15:57 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
 Stack trace:
 #0 C:\xampp\htdocs\mo\router.php(121): require_once()
 #1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
 #2 {main}
   thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:47:32 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
+[02-May-2025 12:16:01 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
 Stack trace:
 #0 C:\xampp\htdocs\mo\router.php(121): require_once()
 #1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
 #2 {main}
   thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
-[02-May-2025 11:47:37 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
+[02-May-2025 12:18:52 Asia/Tehran] PHP Fatal error:  Cannot redeclare checkUserPermission() (previously declared in C:\xampp\htdocs\mo\includes\functions.php:198) in C:\xampp\htdocs\mo\includes\auth\permissions.php on line 41
+[02-May-2025 12:18:53 Asia/Tehran] PHP Fatal error:  Cannot redeclare checkUserPermission() (previously declared in C:\xampp\htdocs\mo\includes\functions.php:198) in C:\xampp\htdocs\mo\includes\auth\permissions.php on line 41
+[02-May-2025 12:19:05 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
 Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(121): require_once()
+#0 C:\xampp\htdocs\mo\router.php(122): require_once()
 #1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
 #2 {main}
   thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
+[02-May-2025 12:19:09 Asia/Tehran] PHP Fatal error:  Cannot redeclare checkUserPermission() (previously declared in C:\xampp\htdocs\mo\includes\functions.php:199) in C:\xampp\htdocs\mo\includes\auth\permissions.php on line 41
+[02-May-2025 12:19:21 Asia/Tehran] PHP Fatal error:  Cannot redeclare checkUserPermission() (previously declared in C:\xampp\htdocs\mo\includes\functions.php:199) in C:\xampp\htdocs\mo\includes\auth\permissions.php on line 41
+[02-May-2025 12:19:26 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
+Stack trace:
+#0 C:\xampp\htdocs\mo\router.php(122): require_once()
+#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
+[02-May-2025 12:24:32 Asia/Tehran] PHP Fatal error:  Cannot redeclare checkUserPermission() (previously declared in C:\xampp\htdocs\mo\includes\auth\functions.php:52) in C:\xampp\htdocs\mo\includes\auth\permissions.php on line 41
+[02-May-2025 12:24:34 Asia/Tehran] PHP Fatal error:  Cannot redeclare checkUserPermission() (previously declared in C:\xampp\htdocs\mo\includes\auth\functions.php:52) in C:\xampp\htdocs\mo\includes\auth\permissions.php on line 41
+[02-May-2025 12:24:42 Asia/Tehran] PHP Fatal error:  Cannot redeclare checkUserPermission() (previously declared in C:\xampp\htdocs\mo\includes\auth\functions.php:52) in C:\xampp\htdocs\mo\includes\auth\permissions.php on line 41
+[02-May-2025 12:24:43 Asia/Tehran] PHP Fatal error:  Cannot redeclare checkUserPermission() (previously declared in C:\xampp\htdocs\mo\includes\auth\functions.php:52) in C:\xampp\htdocs\mo\includes\auth\permissions.php on line 41
+[02-May-2025 12:24:51 Asia/Tehran] PHP Fatal error:  Cannot redeclare checkUserPermission() (previously declared in C:\xampp\htdocs\mo\includes\auth\functions.php:52) in C:\xampp\htdocs\mo\includes\auth\permissions.php on line 41
+[02-May-2025 12:25:03 Asia/Tehran] PHP Fatal error:  Cannot redeclare checkUserPermission() (previously declared in C:\xampp\htdocs\mo\includes\auth\functions.php:52) in C:\xampp\htdocs\mo\includes\auth\permissions.php on line 41
+[02-May-2025 12:25:04 Asia/Tehran] PHP Fatal error:  Cannot redeclare checkUserPermission() (previously declared in C:\xampp\htdocs\mo\includes\auth\functions.php:52) in C:\xampp\htdocs\mo\includes\auth\permissions.php on line 41
+[02-May-2025 12:25:08 Asia/Tehran] PHP Fatal error:  Cannot redeclare checkUserPermission() (previously declared in C:\xampp\htdocs\mo\includes\auth\functions.php:52) in C:\xampp\htdocs\mo\includes\auth\permissions.php on line 41

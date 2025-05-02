@@ -39,31 +39,6 @@
     padding: 10px;
 }
 
-.jstree-default .jstree-anchor {
-    font-family: 'IRANSans' !important;
-}
-
-/* فرم‌ها */
-.modal-header {
-    border-bottom: 1px solid #dee2e6;
-    background: #f8f9fa;
-}
-
-.modal-footer {
-    border-top: 1px solid #dee2e6;
-    background: #f8f9fa;
-}
-
-/* جزئیات دسته‌بندی */
-#categoryDetails {
-    min-height: 200px;
-    padding: 20px;
-}
-
-#categoryDetails .text-center {
-    margin-top: 50px;
-}
-
 /* دکمه‌های عملیات */
 .btn-tool {
     background: transparent;
@@ -75,44 +50,4 @@
 
 .btn-tool:hover {
     color: #495057;
-}
-
-/* نوار ابزار */
-.toolbar {
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    background: #f8f9fa;
-    border-radius: 0.25rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.search-box {
-    position: relative;
-    width: 300px;
-}
-
-.search-box i {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #6c757d;
-}
-
-.search-box input {
-    padding-left: 30px;
-}
-
-/* ریسپانسیو */
-@media (max-width: 768px) {
-    .toolbar {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .search-box {
-        width: 100%;
-    }
 }

@@ -35,8 +35,23 @@ function checkUserPermission($permission) {
 
     // بررسی دسترسی‌های کاربر
     if (isset($_SESSION['permissions']) && is_array($_SESSION['permissions'])) {
-        return in_array($permission, $_SESSION['permissions']);
+    if (in_array($permission, $_SESSION['permissions'])) {
+        error_log(sprintf(
+            "[%s] Permission granted for user %s: %s", 
+            date('Y-m-d H:i:s'),
+            $_SESSION['username'] ?? 'unknown',
+            $permission
+        ));
+        return true;
     }
+    error_log(sprintf(
+        "[%s] Permission denied for user %s: %s", 
+        date('Y-m-d H:i:s'),
+        $_SESSION['username'] ?? 'unknown',
+        $permission
+    ));
+    return false;
+}
 
     return false;
 }

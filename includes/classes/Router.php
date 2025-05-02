@@ -113,7 +113,8 @@ class Router
      * بررسی دسترسی به صفحه
      */
     private function checkAccess($page) 
-    {
+{
+    try {
         // اگر صفحه عمومی است
         if (in_array($page, $this->public_pages)) {
             return true;
@@ -121,22 +122,53 @@ class Router
 
         // اگر کاربر لاگین نکرده
         if (!isset($_SESSION['user_id'])) {
+            error_log(sprintf(
+                "[%s] Access denied: No user session for page %s", 
+                date('Y-m-d H:i:s'),
+                $page
+            ));
             return false;
         }
 
         // اگر کاربر ادمین است
         if (isset($_SESSION['is_admin']) && $_SESSION['is_admin']) {
+            error_log(sprintf(
+                "[%s] Admin access granted for page %s", 
+                date('Y-m-d H:i:s'),
+                $page
+            ));
             return true;
         }
 
-        // بررسی دسترسی صفحه categories
-        if ($page === 'categories') {
-            return checkUserPermission('manage_categories');
+        // بررسی دسترسی به صفحات خاص
+        switch ($page) {
+            case 'categories':
+                if (!function_exists('checkUserPermission')) {
+                    require_once BASE_PATH . '/includes/auth/permissions.php';
+                }
+                return checkUserPermission('manage_categories');
+            
+            case 'dashboard':
+                return true;
+                
+            default:
+                error_log(sprintf(
+                    "[%s] Unknown page access check: %s for user %s", 
+                    date('Y-m-d H:i:s'),
+                    $page,
+                    $_SESSION['username'] ?? 'unknown'
+                ));
+                return true;
         }
-
-        // برای سایر صفحات داشبورد
-        return true;
+    } catch (Exception $e) {
+        error_log(sprintf(
+            "[%s] Error in checkAccess: %s", 
+            date('Y-m-d H:i:s'),
+            $e->getMessage()
+        ));
+        return false;
     }
+}
 
     /**
      * نمایش صفحه

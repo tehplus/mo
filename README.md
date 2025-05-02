@@ -3,26 +3,14 @@
 
 
 کد ناقص اومد. ادامشو بنویس. تا اینجا نوشتی.
-
-    /**
-     * تجدید remember token
-     * 
-     * @param string $token توکن قبلی
-     */
-    private function refreshRememberToken($token) {
-        $query = "SELECT user_id FROM remember_tokens WHERE token = ? LIMIT 1";
-        $result = $this->db->getRow($query, [$token]);
-
-        if ($result) {
-            $this->clearRememberToken($token);
-            $this->setRememberToken($result['user_id']);
-        }
-    }
-
-    /**
-     *
+فایل assets\js\categories.js ناقص اومده ادامشو بنویس. تا اینجا نوشتی
 
 
+const formData = new FormData(this);
+            const url = currentCategoryId ? 
+                `${BASE_URL}/api/categories/${currentCategoryId}` : 
+                `${BASE_URL}/api/categories`;
+            const
 از همینجا به بعدشو بنویس. از اول ننویسی
 
 

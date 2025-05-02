@@ -106,7 +106,15 @@ if ($is_public) {
                 die('خطا: صفحه داشبورد یافت نشد.');
             }
             break;
-    }
+            
+            case 'categories':
+            if (!checkUserPermission('manage_categories')) {
+                redirect('error/403');
+            }
+            $pageTitle = 'مدیریت دسته‌بندی‌ها';
+            require_once 'pages/templates/categories.php';
+            break;
+            }
 } else {
     // صفحات داشبورد
     include_once 'includes/header.php';

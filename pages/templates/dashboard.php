@@ -104,7 +104,7 @@ try {
 <body>
     <?php require_once BASE_PATH . '/includes/sidebar.php'; ?>
 
-    <div class="dashboard-container">
+    <div class="content-wrapper">
         <div class="dashboard-header">
             <div class="welcome-section">
                 <h1>خوش آمدید، <?php echo $_SESSION['user_full_name'] ?? 'کاربر گرامی'; ?></h1>

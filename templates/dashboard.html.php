@@ -104,7 +104,7 @@
 
         <!-- Recent Section -->
         <main class="main-content">
-            <div class="content-wrapper">
+            <!-- Recent Invoices -->
             <div class="table-card">
                 <div class="table-header">
                     <h3 class="table-title">آخرین فاکتورها</h3>

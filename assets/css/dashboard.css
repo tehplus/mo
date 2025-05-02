@@ -1,4 +1,42 @@
 /* تنظیمات کلی */
+:root {
+    --sidebar-width: 260px;
+    --sidebar-mini-width: 70px;
+    --transition-speed: 0.3s;
+}
+
+/* کانتینر اصلی */
+.content-wrapper {
+    margin-right: var(--sidebar-width);
+    padding: 20px;
+    transition: margin-right var(--transition-speed) ease;
+    background-color: #f4f6f9;
+    position: relative;
+    width: calc(100% - var(--sidebar-width));
+    min-height: 100vh;
+    z-index: 1;
+}
+
+/* حالت بسته سایدبار */
+.sidebar.collapsed + .content-wrapper {
+    margin-right: var(--sidebar-mini-width);
+    width: calc(100% - var(--sidebar-mini-width));
+}
+
+/* حالت موبایل */
+@media (max-width: 768px) {
+    .content-wrapper {
+        margin-right: 0;
+        width: 100%;
+        padding: 15px;
+    }
+    
+    .sidebar.collapsed + .content-wrapper {
+        margin-right: 0;
+        width: 100%;
+    }
+}
+/* تنظیمات کلی */
 body {
     background-color: #f4f6f9;
     font-family: IRANSans, Tahoma, sans-serif;

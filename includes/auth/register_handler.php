@@ -9,10 +9,10 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQ
 header('Content-Type: application/json; charset=utf-8');
 
 try {
-    // دریافت و پاکسازی داده‌ها
-    $fullName = trim(filter_input(INPUT_POST, 'fullName', FILTER_SANITIZE_STRING));
-    $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
-    $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
+    // دریافت و پاکسازی داده‌ها با روش جدید
+    $fullName = htmlspecialchars(trim($_POST['fullName'] ?? ''), ENT_QUOTES, 'UTF-8');
+    $username = htmlspecialchars(trim($_POST['username'] ?? ''), ENT_QUOTES, 'UTF-8');
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'] ?? '';
     $confirmPassword = $_POST['confirmPassword'] ?? '';
     

@@ -13,11 +13,6 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 }
 date_default_timezone_set('Asia/Tehran');
 
-// تنظیمات پایه
-define('BASE_PATH', __DIR__);
-define('BASE_URL', '/mo');
-define('APP_NAME', 'سیستم حسابداری هوشمند');
-define('APP_VERSION', '1.0.0');
 
 // متغیرهای سراسری برای قالب
 $meta = [

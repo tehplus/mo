@@ -1,26 +1,14 @@
 <?php
-// تنظیم header برای حل مشکل کاراکترهای فارسی
-header('Content-Type: application/json; charset=utf-8');
-
-// بررسی نوع درخواست
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode([
-        'success' => false, 
-        'message' => 'درخواست نامعتبر است'
-    ]);
-    exit;
+// اگر درخواست Ajax نیست
+if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest') {
+    header('HTTP/1.1 403 Forbidden');
+    die('دسترسی مستقیم به این فایل مجاز نیست');
 }
 
+// تنظیم header برای JSON
+header('Content-Type: application/json; charset=utf-8');
+
 try {
-    // لود کردن فایل‌های مورد نیاز
-    require_once __DIR__ . '/../../includes/config.php';
-    require_once __DIR__ . '/../../includes/classes/Database.php';
-    
-    // ایجاد اتصال به دیتابیس
-    $db = new Database();
-    $conn = $db->getConnection();
-    
     // دریافت و پاکسازی داده‌ها
     $fullName = trim(filter_input(INPUT_POST, 'fullName', FILTER_SANITIZE_STRING));
     $username = trim(filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING));
@@ -59,62 +47,55 @@ try {
     
     // اگر خطایی نبود
     if (empty($errors)) {
+        $db = new Database();
+        $conn = $db->getConnection();
+        
         // بررسی تکراری نبودن نام کاربری و ایمیل
         $stmt = $conn->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
         $stmt->execute([$username, $email]);
         
         if ($stmt->rowCount() > 0) {
-            $errors['username'] = 'این نام کاربری یا ایمیل قبلاً ثبت شده است';
-        } else {
-            // هش کردن رمز عبور
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            
-            // درج کاربر جدید
-            $stmt = $conn->prepare(
-                "INSERT INTO users (full_name, username, email, password, created_at) 
-                 VALUES (?, ?, ?, ?, NOW())"
-            );
-            
-            $success = $stmt->execute([$fullName, $username, $email, $hashedPassword]);
-            
-            if ($success) {
-                echo json_encode([
-                    'success' => true,
-                    'message' => 'ثبت نام با موفقیت انجام شد'
-                ]);
-                exit;
-            } else {
-                throw new Exception("خطا در ذخیره اطلاعات");
-            }
+            echo json_encode([
+                'success' => false,
+                'errors' => ['username' => 'این نام کاربری یا ایمیل قبلاً ثبت شده است']
+            ]);
+            exit;
         }
-    }
-    
-    // اگر خطایی وجود داشت
-    if (!empty($errors)) {
+        
+        // هش کردن رمز عبور
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        
+        // درج کاربر جدید
+        $stmt = $conn->prepare(
+            "INSERT INTO users (full_name, username, email, password, created_at) 
+             VALUES (?, ?, ?, ?, NOW())"
+        );
+        
+        if ($stmt->execute([$fullName, $username, $email, $hashedPassword])) {
+            echo json_encode([
+                'success' => true,
+                'message' => 'ثبت نام با موفقیت انجام شد'
+            ]);
+        } else {
+            throw new Exception("خطا در ذخیره اطلاعات");
+        }
+    } else {
         echo json_encode([
             'success' => false,
             'errors' => $errors
         ]);
-        exit;
     }
     
 } catch (PDOException $e) {
-    // لاگ کردن خطا
     error_log("Database Error in register_handler.php: " . $e->getMessage());
-    
     echo json_encode([
         'success' => false,
         'message' => 'خطا در ارتباط با پایگاه داده'
     ]);
-    exit;
-    
 } catch (Exception $e) {
-    // لاگ کردن خطا
     error_log("General Error in register_handler.php: " . $e->getMessage());
-    
     echo json_encode([
         'success' => false,
         'message' => $e->getMessage()
     ]);
-    exit;
 }

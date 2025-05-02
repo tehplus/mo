@@ -34,16 +34,17 @@ try {
     
     // اگر خطایی نبود
     if (empty($errors)) {
-        $db = new Database();
-        $conn = $db->getConnection();
-        
-        // جستجوی کاربر
-        $stmt = $conn->prepare("
-            SELECT id, username, email, password, full_name 
-            FROM users 
-            WHERE (username = ? OR email = ?) 
-            AND status = 1
-        ");
+        try {
+            $db = Database::getInstance();  // استفاده از getInstance
+            $conn = $db->getConnection();
+        } catch (Exception $e) {
+            error_log("Database Connection Error: " . $e->getMessage());
+            echo json_encode([
+                'success' => false,
+                'message' => 'خطا در اتصال به پایگاه داده'
+            ]);
+            exit;
+        }
         
         $stmt->execute([$username, $username]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);

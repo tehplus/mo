@@ -68,9 +68,10 @@ if ($is_public) {
             
         case 'login':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                require_once 'includes/config.php';
-                require_once 'includes/classes/Database.php';
-                require_once 'includes/auth/login_handler.php';
+                require_once 'includes/config.php';        // اول
+                require_once 'includes/auth/functions.php'; // دوم (اگر وجود دارد)
+                require_once 'includes/classes/Database.php';  // سوم
+                require_once 'includes/auth/login_handler.php'; // چهارم
                 exit;
             } else if (file_exists('pages/auth/login.php')) {
                 require_once 'pages/auth/login.php';

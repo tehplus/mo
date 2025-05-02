@@ -129,6 +129,6 @@ $meta['title'] = 'ورود به سیستم - ' . APP_NAME;
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
     
     <!-- اسکریپت‌های اختصاصی -->
-    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/login.js"></script>
 </body>
 </html>

@@ -5,7 +5,9 @@
  * @version 1.0.0
  * @since 2025-05-01
  */
-
+if (!defined('BASE_URL')) {
+    define('BASE_URL', 'http://localhost/mo'); // آدرس کامل با http
+}
 // نمایش خطاها در محیط توسعه
 error_reporting(E_ALL);
 ini_set('display_errors', 0);

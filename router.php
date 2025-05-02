@@ -1,33 +1,41 @@
 <?php
 
-/**
- * مسیریاب اصلی برنامه
- * @author tehplus
- * @version 1.0.0
- * @since 2025-05-01
- */
 
 // قبل از شروع session چک کنیم که قبلاً شروع نشده باشه
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+require_once BASE_PATH . '/includes/auth/permissions.php';
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
     header('Content-Type: application/json');
 }
 date_default_timezone_set('Asia/Tehran');
 
-// لود کردن تنظیمات و فایل‌های اصلی
-if (file_exists(BASE_PATH . '/includes/config.php')) {
-    require_once BASE_PATH . '/includes/config.php';
-}
+
 
 // لود کردن فایل‌های ضروری
 if (file_exists(BASE_PATH . '/includes/classes/Database.php')) {
     require_once BASE_PATH . '/includes/classes/Database.php';
 }
 
+/**
+ * مسیریاب اصلی برنامه
+ * @author tehplus
+ * @version 1.0.0
+ * @since 2025-05-01
+ */
+if (file_exists(BASE_PATH . '/includes/config.php')) {
+    require_once BASE_PATH . '/includes/config.php';
+} else {
+    die('خطا: فایل config.php یافت نشد.');
+}
+
+// سپس فایل functions.php لود شود
 if (file_exists(BASE_PATH . '/includes/auth/functions.php')) {
     require_once BASE_PATH . '/includes/auth/functions.php';
+} else {
+    die('خطا: فایل functions.php یافت نشد.');
 }
 
 

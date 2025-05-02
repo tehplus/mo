@@ -29,7 +29,7 @@ if (!function_exists('redirect')) {
         
         if ($path === 'error/403') {
             $_SESSION['error'] = 'شما دسترسی لازم برای این عملیات را ندارید.';
-            header('Location: ' . BASE_URL . '/?page=error');
+            $_SESSION['redirect'] = BASE_URL . '/?page=error';
             exit;
         }
         
@@ -39,21 +39,7 @@ if (!function_exists('redirect')) {
         }
         $url .= $path;
         
-        if (!headers_sent()) {
-            header('Location: ' . $url);
-            exit;
-        }
-    }
-}
-
-// تابع بررسی دسترسی کاربر
-if (!function_exists('checkUserPermission')) {
-    function checkUserPermission($permission) {
-        if (!isset($_SESSION['user_id'])) {
-            return false;
-        }
-        
-        // TODO: پیاده‌سازی سیستم دسترسی‌ها در آینده
-        return true;
+        $_SESSION['redirect'] = $url;
+        exit;
     }
 }

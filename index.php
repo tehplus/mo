@@ -12,3 +12,11 @@ define('BASE_PATH', __DIR__); // همینجا تعریف کنید
 
 // لود فایل router
 require_once 'router.php';
+
+// بررسی و اعمال ریدایرکت
+if (isset($_SESSION['redirect'])) {
+    $redirect_url = $_SESSION['redirect'];
+    unset($_SESSION['redirect']);
+    header('Location: ' . $redirect_url);
+    exit;
+}

@@ -1,7 +1,6 @@
 <?php
 /**
  * صفحه نمایش خطا
- * 
  * @author tehplus
  * @version 1.0.0
  * @since 2025-05-02
@@ -15,10 +14,7 @@ unset($_SESSION['error']); // پاک کردن پیام خطا بعد از نما
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">
-                    <i class="fas fa-exclamation-triangle text-warning"></i>
-                    خطا
-                </h1>
+                <h1 class="m-0 text-dark">خطا</h1>
             </div>
         </div>
     </div>
@@ -26,18 +22,11 @@ unset($_SESSION['error']); // پاک کردن پیام خطا بعد از نما
 
 <div class="content">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="alert alert-danger">
-                    <?php echo $error_message; ?>
-                </div>
-                <div class="text-center mt-4">
-                    <a href="<?php echo BASE_URL; ?>/" class="btn btn-primary">
-                        <i class="fas fa-home"></i>
-                        بازگشت به صفحه اصلی
-                    </a>
-                </div>
-            </div>
+        <div class="alert alert-danger">
+            <?php echo $error_message; ?>
         </div>
+        <a href="<?php echo BASE_URL; ?>/" class="btn btn-primary">
+            بازگشت به صفحه اصلی
+        </a>
     </div>
 </div>

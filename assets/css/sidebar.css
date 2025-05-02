@@ -247,3 +247,72 @@
     --sidebar-active: #3d3d3d;
     --sidebar-border: #2d2d2d;
 }
+/* اندازه آیکون‌ها در حالت عادی و بسته */
+.nav-link i {
+    font-size: 16px; /* کوچکتر شد */
+    width: 20px; /* کوچکتر شد */
+    text-align: center;
+    margin-left: 10px;
+    transition: all 0.3s ease; /* اضافه شد */
+}
+
+/* وقتی سایدبار باز است */
+.sidebar:not(.collapsed) .nav-link i {
+    font-size: 18px; /* بزرگتر میشود */
+    width: 24px;
+}
+
+/* تنظیم فلش‌های زیرمنو */
+.submenu-arrow {
+    margin-right: auto !important; /* اضافه شد */
+    margin-left: 0;
+    transition: transform 0.3s;
+    font-size: 12px; /* کوچکتر شد */
+}
+
+/* تولتیپ برای حالت بسته */
+.sidebar.collapsed .nav-link {
+    position: relative;
+}
+
+.sidebar.collapsed .nav-link:hover::after {
+    content: attr(data-title);
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    margin-right: 10px;
+    z-index: 1000;
+}
+
+/* اصلاح مارجین محتوا */
+.content-wrapper {
+    margin-right: 260px;
+    padding: 20px;
+    transition: margin-right 0.3s ease; /* اضافه شد */
+    width: calc(100% - 260px); /* اضافه شد */
+}
+
+.sidebar.collapsed + .content-wrapper {
+    margin-right: 70px;
+    width: calc(100% - 70px); /* اضافه شد */
+}
+
+/* منو در حالت بسته */
+.sidebar.collapsed .nav-item:hover .submenu {
+    display: block;
+    position: absolute;
+    right: 100%;
+    top: 0;
+    width: 200px;
+    background: white;
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    margin-right: 5px;
+}

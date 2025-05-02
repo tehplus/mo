@@ -1,146 +1,183 @@
 <?php
-
-
-// قبل از شروع session چک کنیم که قبلاً شروع نشده باشه
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-require_once BASE_PATH . '/includes/auth/permissions.php';
-if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-    header('Content-Type: application/json');
-}
-date_default_timezone_set('Asia/Tehran');
-
-
-
-// لود کردن فایل‌های ضروری
-if (file_exists(BASE_PATH . '/includes/classes/Database.php')) {
-    require_once BASE_PATH . '/includes/classes/Database.php';
-}
-
 /**
- * مسیریاب اصلی برنامه
+ * کلاس اصلی مسیریابی
  * @author tehplus
  * @version 1.0.0
- * @since 2025-05-01
+ * @since 2025-05-02
  */
-if (file_exists(BASE_PATH . '/includes/config.php')) {
-    require_once BASE_PATH . '/includes/config.php';
-} else {
-    die('خطا: فایل config.php یافت نشد.');
-}
 
-// سپس فایل functions.php لود شود
-if (file_exists(BASE_PATH . '/includes/auth/functions.php')) {
-    require_once BASE_PATH . '/includes/auth/functions.php';
-} else {
-    die('خطا: فایل functions.php یافت نشد.');
-}
-
-
-// متغیرهای سراسری برای قالب
-$meta = [
-    'title' => APP_NAME,
-    'description' => 'سیستم حسابداری آنلاین برای کسب و کارهای کوچک و متوسط'
-];
-
-// لیست صفحات مجاز برای دسترسی عمومی
-$public_pages = ['home', 'register', 'login', 'dashboard', 'error'];
-
-// دریافت صفحه درخواستی
-$page = isset($_GET['page']) ? strtolower(trim($_GET['page'])) : (isset($_SESSION['user_id']) ? 'dashboard' : 'home');
-
-
-// اگر کاربر لاگین نکرده و صفحه عمومی نیست
-if (!in_array($page, $public_pages) && !isset($_SESSION['user_id'])) {
-    header('Location: ?page=login');
-    exit;
-}
-
-// حذف کاراکترهای غیرمجاز از نام صفحه
-$page = preg_replace('/[^a-z0-9\-_]/', '', $page);
-
-// اگر صفحه خالی شد
-if (empty($page)) {
-    $page = isset($_SESSION['user_id']) ? 'dashboard' : 'home';
-}
-
-// بررسی نوع صفحه
-$is_public = in_array($page, $public_pages);
-
-// نمایش قالب مناسب
-if ($is_public) {
-    // صفحات عمومی
-    switch ($page) {
-        case 'home':
-            require_once 'pages/home.php';
-            break;
-            
-        case 'register':
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                require_once 'includes/config.php';
-                require_once 'includes/classes/Database.php';
-                require_once 'includes/auth/register_handler.php';
-                exit;
-            } else if (file_exists('pages/auth/register.php')) {
-                require_once 'pages/auth/register.php';
-            } else {
-                die('خطا: صفحه ثبت نام یافت نشد.');
-            }
-        break;
-            
-                case 'login':
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                require_once 'includes/config.php';
-                require_once 'includes/classes/Database.php';
-                require_once 'includes/auth/login_handler.php';
-                exit;
-            } else if (file_exists('pages/auth/login.php')) {
-                require_once 'pages/auth/login.php';
-            } else {
-                die('خطا: صفحه ورود یافت نشد.');
-            }
-            break;
-
-                case 'dashboard':
-            if (!isset($_SESSION['user_id'])) {
-                header('Location: ?page=login');
-                exit;
-            }
-            require_once 'includes/classes/Database.php';  // اضافه کردن این خط
-            if (file_exists('pages/dashboard.php')) {
-                require_once 'pages/dashboard.php';
-            } else {
-                die('خطا: صفحه داشبورد یافت نشد.');
-            }
-            break;
-            
-            
-            }
-} else {
-    // صفحات داشبورد
-    include_once 'includes/header.php';
-    include_once 'includes/sidebar.php';
+class Router {
+    private $page;
+    private $action;
+    private $template = 'default';
+    private $public_pages = ['login', 'register', 'forgot-password', 'reset-password'];
     
-    echo '<div class="content-wrapper">';
-    
-    $page_file = "pages/$page/index.php";
-    if (file_exists($page_file)) {
-    require_once $page_file;
-    } else {
-        echo '<div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">صفحه مورد نظر یافت نشد</h1>
-                        </div>
-                    </div>
-                </div>
-            </div>';
+    public function __construct() {
+        $this->page = $_GET['page'] ?? 'dashboard';
+        $this->action = $_GET['action'] ?? 'index';
     }
     
-    echo '</div>';
-    
-    include_once 'includes/footer.php';
+    /**
+     * مسیریابی درخواست‌ها
+     */
+    public function route() {
+        try {
+            // بررسی درخواست login
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && $this->page === 'login') {
+                // بررسی درخواست AJAX
+                if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || 
+                    strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest') {
+                    $this->jsonResponse(403, 'درخواست غیرمجاز');
+                }
+                
+                require_once BASE_PATH . '/includes/auth/login_handler.php';
+                exit;
+            }
+
+            // بررسی دسترسی به صفحه
+            if (!$this->checkAccess($this->page)) {
+                $this->redirect('login');
+            }
+
+            // مسیر فایل صفحه
+            $page_file = $this->getPageFile();
+            
+            if (!file_exists($page_file)) {
+                throw new Exception('صفحه مورد نظر یافت نشد');
+            }
+
+            // تنظیم قالب براساس صفحه
+            $this->setTemplate();
+            
+            // نمایش صفحه
+            $this->renderPage();
+
+        } catch (Exception $e) {
+            $this->handleError($e);
+        }
+    }
+
+    /**
+     * بررسی دسترسی کاربر به صفحه
+     */
+    private function checkAccess($page) {
+        // صفحات عمومی
+        if (in_array($page, $this->public_pages)) {
+            return true;
+        }
+
+        // بررسی لاگین
+        if (!isset($_SESSION['user_id'])) {
+            return false;
+        }
+
+        // بررسی دسترسی‌های خاص
+        switch ($page) {
+            case 'categories':
+                return checkUserPermission('manage_categories');
+            case 'users':
+                return checkUserPermission('manage_users');
+            default:
+                return true;
+        }
+    }
+
+    /**
+     * دریافت مسیر فایل صفحه
+     */
+    private function getPageFile() {
+        $base = BASE_PATH . '/pages/';
+        
+        // مسیرهای خاص
+        switch ($this->page) {
+            case 'login':
+            case 'register':
+            case 'forgot-password':
+            case 'reset-password':
+                return $base . 'auth/' . $this->page . '.php';
+            
+            case 'error':
+                $code = $_GET['code'] ?? '404';
+                return $base . 'error/' . $code . '.php';
+        }
+
+        // صفحات عادی
+        if ($this->action === 'index') {
+            return $base . $this->page . '/index.php';
+        }
+
+        return $base . $this->page . '/' . $this->action . '.php';
+    }
+
+    /**
+     * تنظیم قالب براساس صفحه
+     */
+    private function setTemplate() {
+        switch ($this->page) {
+            case 'login':
+            case 'register':
+            case 'forgot-password':
+            case 'reset-password':
+                $this->template = 'auth';
+                break;
+            
+            case 'error':
+                $this->template = 'error';
+                break;
+        }
+    }
+
+    /**
+     * نمایش صفحه با قالب مناسب
+     */
+    private function renderPage() {
+        // متغیرهای پیش‌فرض قالب
+        $meta = [
+            'title' => APP_NAME,
+            'description' => ''
+        ];
+
+        // لود هدر قالب
+        require_once BASE_PATH . '/includes/template/' . $this->template . '/header.php';
+        
+        // لود محتوای صفحه
+        require_once $this->getPageFile();
+        
+        // لود فوتر قالب
+        require_once BASE_PATH . '/includes/template/' . $this->template . '/footer.php';
+    }
+
+    /**
+     * مدیریت خطاها
+     */
+    private function handleError($error) {
+        if (is_ajax()) {
+            $this->jsonResponse(500, $error->getMessage());
+        } else {
+            $_SESSION['error'] = $error->getMessage();
+            $this->redirect('error');
+        }
+    }
+
+    /**
+     * ارسال پاسخ JSON
+     */
+    private function jsonResponse($status, $message, $data = []) {
+        header('Content-Type: application/json; charset=utf-8');
+        http_response_code($status);
+        echo json_encode([
+            'success' => $status === 200,
+            'message' => $message,
+            'data' => $data
+        ]);
+        exit;
+    }
+
+    /**
+     * تغییر مسیر
+     */
+    private function redirect($to) {
+        header('Location: ' . BASE_URL . '/?page=' . $to);
+        exit;
+    }
 }

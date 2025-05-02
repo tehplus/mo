@@ -1,33 +1,17 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
 /**
  * پردازش درخواست ورود کاربر
  * @author tehplus
  * @version 1.0.0
  * @since 2025-05-02
  */
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-require_once __DIR__ . '/../../includes/config.php';
-require_once __DIR__ . '/../../includes/classes/Database.php';
-
-header('Content-Type: application/json; charset=utf-8');
-
-
-// اگر درخواست Ajax نیست
-if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest') {
-    header('HTTP/1.1 403 Forbidden');
-    die('دسترسی مستقیم به این فایل مجاز نیست');
-}
 
 // تنظیم header برای JSON
 header('Content-Type: application/json; charset=utf-8');
 
 try {
     // دریافت و پاکسازی داده‌ها
-    $username = htmlspecialchars(trim($_POST['username'] ?? ''), ENT_QUOTES, 'UTF-8');
+    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
     $password = $_POST['password'] ?? '';
     $remember = isset($_POST['remember']) && $_POST['remember'] === 'on';
     
@@ -44,23 +28,18 @@ try {
     
     // اگر خطایی نبود
     if (empty($errors)) {
-        try {
-            $db = Database::getInstance();  // استفاده از getInstance
-            $conn = $db->getConnection();
-        } catch (Exception $e) {
-            error_log("Database Connection Error: " . $e->getMessage());
-            echo json_encode([
-                'success' => false,
-                'message' => 'خطا در اتصال به پایگاه داده'
-            ]);
-            exit;
-        }
-         // جستجوی کاربر
+        // دریافت اتصال به دیتابیس
+        $db = Database::getInstance();
+        $conn = $db->getConnection();
+        
+        // جستجوی کاربر
         $stmt = $conn->prepare("
-            SELECT id, username, email, password, full_name 
+            SELECT id, username, email, password, full_name, permissions 
             FROM users 
             WHERE (username = ? OR email = ?)
+            AND is_active = 1
         ");
+        
         $stmt->execute([$username, $username]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         
@@ -70,16 +49,8 @@ try {
             $_SESSION['username'] = $user['username'];
             $_SESSION['full_name'] = $user['full_name'];
             $_SESSION['email'] = $user['email'];
+            $_SESSION['permissions'] = json_decode($user['permissions'], true) ?? [];
             
-            // دریافت دسترسی‌های کاربر از دیتابیس
-            $permissions_query = "SELECT permissions FROM users WHERE id = :user_id";
-            $stmt = $db->prepare($permissions_query);
-            $stmt->execute(['user_id' => $user['id']]);
-            $user_permissions = $stmt->fetchColumn();
-
-            // ذخیره دسترسی‌ها در سشن
-            $_SESSION['permissions'] = $user_permissions ? json_decode($user_permissions, true) : [];
-
             // اگر گزینه مرا به خاطر بسپار انتخاب شده
             if ($remember) {
                 $token = bin2hex(random_bytes(32));
@@ -99,7 +70,7 @@ try {
                         strtotime('+30 days'),
                         '/',
                         '',
-                        true,  // Only through HTTPS
+                        true,  // فقط HTTPS
                         true   // HttpOnly
                     );
                 }
@@ -134,13 +105,13 @@ try {
     }
     
 } catch (PDOException $e) {
-    error_log("Database Error in login_handler.php: " . $e->getMessage());
+    error_log("Database Error: " . $e->getMessage());
     echo json_encode([
         'success' => false,
         'message' => 'خطا در ارتباط با پایگاه داده'
     ]);
 } catch (Exception $e) {
-    error_log("General Error in login_handler.php: " . $e->getMessage());
+    error_log("Login Error: " . $e->getMessage());
     echo json_encode([
         'success' => false,
         'message' => $e->getMessage()

@@ -1,27 +1,41 @@
 <?php
 /**
- * فایل اصلی برنامه - نقطه ورود تمام درخواست‌ها
- * 
+ * فایل اصلی پروژه
  * @author tehplus
  * @version 1.0.0
- * @since 2025-05-02 09:56:10
+ * @since 2025-05-02
  */
 
-// شروع session
-session_start();
+// تنظیم محیط (development یا production)
+define('DEVELOPMENT_MODE', true);
 
-// تعریف مسیر اصلی
-define('BASE_PATH', __DIR__);
+// لود کردن تنظیمات
+require_once __DIR__ . '/includes/config.php';
 
-// لود فایل‌های اصلی به ترتیب اهمیت
-require_once BASE_PATH . '/includes/config.php';
-require_once BASE_PATH . '/includes/classes/Database.php';
-require_once BASE_PATH . '/includes/auth/functions.php';
-require_once BASE_PATH . '/includes/auth/permissions.php';
-require_once BASE_PATH . '/includes/classes/Router.php';
-
-// ایجاد نمونه از کلاس Router
-$router = new Router();
-
-// مسیریابی به صفحه درخواستی
-$router->route();
+try {
+    // ایجاد نمونه از کلاس Router
+    $router = new Router();
+    
+    // اجرای مسیریابی
+    $router->route();
+    
+} catch (Exception $e) {
+    // لاگ خطا
+    error_log(sprintf(
+        "[%s] Error in index.php: %s", 
+        date('Y-m-d H:i:s'), 
+        $e->getMessage()
+    ));
+    
+    // نمایش خطا به کاربر
+    if (DEVELOPMENT_MODE) {
+        echo '<pre>';
+        echo "Error: " . $e->getMessage() . "\n";
+        echo "File: " . $e->getFile() . "\n";
+        echo "Line: " . $e->getLine() . "\n";
+        echo "Trace:\n" . $e->getTraceAsString();
+        echo '</pre>';
+    } else {
+        redirect('/?page=error');
+    }
+}

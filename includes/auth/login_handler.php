@@ -5,6 +5,12 @@
  * @version 1.0.0
  * @since 2025-05-02
  */
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+header('Content-Type: application/json; charset=utf-8');
+
 
 // اگر درخواست Ajax نیست
 if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest') {

@@ -8,13 +8,16 @@
 
 // نمایش خطاها در محیط توسعه
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', __DIR__ . '/../logs/error.log');
 
-// تنظیمات پایگاه داده
-define('DB_HOST', 'localhost');     // آدرس سرور دیتابیس
-define('DB_NAME', 'mo');            // نام دیتابیس
-define('DB_USER', 'root');          // نام کاربری دیتابیس
-define('DB_PASS', '');              // رمز عبور دیتابیس
+// تنظیمات دیتابیس
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'mo');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_CHARSET', 'utf8mb4');
 
 // تنظیمات زمانی
 date_default_timezone_set('Asia/Tehran');

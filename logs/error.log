@@ -1,9 +1,30 @@
-[02-May-2025 08:45:28 Asia/Tehran] PHP Warning:  Constant BASE_PATH already defined in C:\xampp\htdocs\mo\includes\config.php on line 29
-[02-May-2025 08:45:28 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mo.customers' doesn't exist
-[02-May-2025 08:45:28 Asia/Tehran] PHP Warning:  require_once(pages/templates/dashboard.html.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\mo\pages\dashboard.php on line 92
-[02-May-2025 08:45:28 Asia/Tehran] PHP Fatal error:  Uncaught Error: Failed opening required 'pages/templates/dashboard.html.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\mo\pages\dashboard.php:92
-Stack trace:
-#0 C:\xampp\htdocs\mo\router.php(101): require_once()
-#1 C:\xampp\htdocs\mo\index.php(17): require_once('C:\\xampp\\htdocs...')
-#2 {main}
-  thrown in C:\xampp\htdocs\mo\pages\dashboard.php on line 92
+[02-May-2025 09:04:44 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'i.customer_id' in 'on clause'
+[02-May-2025 09:04:44 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'i.customer_id' in 'on clause'
+[02-May-2025 09:08:51 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'i.customer_id' in 'on clause'
+[02-May-2025 09:08:51 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'i.customer_id' in 'on clause'
+[02-May-2025 09:08:51 Asia/Tehran] PHP Warning:  include(C:\xampp\htdocs\moincludes/sidebar.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\mo\pages\templates\dashboard.php on line 100
+[02-May-2025 09:08:51 Asia/Tehran] PHP Warning:  include(): Failed opening 'C:\xampp\htdocs\moincludes/sidebar.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\mo\pages\templates\dashboard.php on line 100
+[02-May-2025 09:08:55 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'i.customer_id' in 'on clause'
+[02-May-2025 09:08:55 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'i.customer_id' in 'on clause'
+[02-May-2025 09:08:55 Asia/Tehran] PHP Warning:  include(C:\xampp\htdocs\moincludes/sidebar.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\mo\pages\templates\dashboard.php on line 100
+[02-May-2025 09:08:55 Asia/Tehran] PHP Warning:  include(): Failed opening 'C:\xampp\htdocs\moincludes/sidebar.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\mo\pages\templates\dashboard.php on line 100
+[02-May-2025 09:09:03 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'i.customer_id' in 'on clause'
+[02-May-2025 09:09:03 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'i.customer_id' in 'on clause'
+[02-May-2025 09:09:03 Asia/Tehran] PHP Warning:  include(C:\xampp\htdocs\moincludes/sidebar.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\mo\pages\templates\dashboard.php on line 100
+[02-May-2025 09:09:03 Asia/Tehran] PHP Warning:  include(): Failed opening 'C:\xampp\htdocs\moincludes/sidebar.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\mo\pages\templates\dashboard.php on line 100
+[02-May-2025 09:09:08 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'i.customer_id' in 'on clause'
+[02-May-2025 09:09:08 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'i.customer_id' in 'on clause'
+[02-May-2025 09:09:08 Asia/Tehran] PHP Warning:  include(C:\xampp\htdocs\moincludes/sidebar.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\mo\pages\templates\dashboard.php on line 100
+[02-May-2025 09:09:08 Asia/Tehran] PHP Warning:  include(): Failed opening 'C:\xampp\htdocs\moincludes/sidebar.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\mo\pages\templates\dashboard.php on line 100
+[02-May-2025 09:09:32 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'i.customer_id' in 'on clause'
+[02-May-2025 09:09:32 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'i.customer_id' in 'on clause'
+[02-May-2025 09:09:32 Asia/Tehran] PHP Warning:  include(C:\xampp\htdocs\moincludes/sidebar.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\mo\pages\templates\dashboard.php on line 100
+[02-May-2025 09:09:32 Asia/Tehran] PHP Warning:  include(): Failed opening 'C:\xampp\htdocs\moincludes/sidebar.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\mo\pages\templates\dashboard.php on line 100
+[02-May-2025 09:09:36 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'i.customer_id' in 'on clause'
+[02-May-2025 09:09:36 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'i.customer_id' in 'on clause'
+[02-May-2025 09:09:36 Asia/Tehran] PHP Warning:  include(C:\xampp\htdocs\moincludes/sidebar.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\mo\pages\templates\dashboard.php on line 100
+[02-May-2025 09:09:36 Asia/Tehran] PHP Warning:  include(): Failed opening 'C:\xampp\htdocs\moincludes/sidebar.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\mo\pages\templates\dashboard.php on line 100
+[02-May-2025 09:09:39 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'i.customer_id' in 'on clause'
+[02-May-2025 09:09:39 Asia/Tehran] Database Error in dashboard.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'i.customer_id' in 'on clause'
+[02-May-2025 09:09:39 Asia/Tehran] PHP Warning:  include(C:\xampp\htdocs\moincludes/sidebar.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\mo\pages\templates\dashboard.php on line 100
+[02-May-2025 09:09:39 Asia/Tehran] PHP Warning:  include(): Failed opening 'C:\xampp\htdocs\moincludes/sidebar.php' for inclusion (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\mo\pages\templates\dashboard.php on line 100

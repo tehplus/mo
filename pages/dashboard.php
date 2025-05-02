@@ -89,4 +89,4 @@ try {
 }
 
 // قالب HTML
-require_once 'pages/templates/dashboard.html.php';
+require_once __DIR__ . '/templates/dashboard.php';

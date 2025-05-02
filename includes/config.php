@@ -26,7 +26,10 @@ date_default_timezone_set('Asia/Tehran');
 define('SITE_KEY', 'mo-' . date('Y')); // کلید امنیتی سایت
 
 // تنظیمات مسیرها
-define('BASE_PATH', dirname(__DIR__)); // مسیر اصلی پروژه
+// تنظیمات مسیرها
+if (!defined('BASE_PATH')) {
+    define('BASE_PATH', dirname(__DIR__)); // مسیر اصلی پروژه
+}
 // تنظیمات مسیرها - فقط اگر تعریف نشده باشند
 if (!defined('BASE_URL')) {
     define('BASE_URL', '/mo');            // آدرس پایه وب‌سایت

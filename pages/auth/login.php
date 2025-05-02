@@ -15,79 +15,72 @@ if (isset($_SESSION['user_id'])) {
 // عنوان صفحه
 $meta['title'] = 'ورود به سیستم - ' . APP_NAME;
 ?>
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="صفحه ورود به سیستم حسابداری هوشمند">
     <title><?php echo $meta['title']; ?></title>
     
-    <!-- فونت‌های ایران‌سنس -->
-    <link href="assets/fonts/anjoman/stylesheet.css" rel="stylesheet">
+    <!-- فونت‌ها -->
+    <link rel="stylesheet" href="assets/fonts/anjoman/stylesheet.css">
     
-    <!-- استایل‌های اصلی -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
-
+    <!-- استایل‌های CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css" rel="stylesheet">
+    
+    <!-- استایل‌های اختصاصی -->
     <link rel="stylesheet" href="assets/css/login.css">
-    
-    <!-- فونت‌آیکون‌ها -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 </head>
+
 <body class="login-page">
-    
-    <div class="login-wrapper">
-        <div class="login-box">
-            <!-- لوگو -->
-            <div class="login-logo mb-4">
-                <img src="/mo/assets/img/logo.png" alt="<?php echo APP_NAME; ?>" class="img-fluid">
-                <h1 class="mt-3"><?php echo APP_NAME; ?></h1>
-            </div>
-            
-            <!-- فرم ورود -->
-            <div class="card">
-                <div class="card-body">
-                    <form id="loginForm" method="post" class="needs-validation" novalidate>
-                        <h5 class="card-title text-center mb-4">ورود به حساب کاربری</h5>
-                        
-                        <!-- نام کاربری یا ایمیل -->
-                        <div class="form-group mb-3">
-                            <label for="username" class="form-label">نام کاربری یا ایمیل</label>
-                            <div class="input-group">
-                                <span class="input-group-text">
-                                    <i class="fas fa-user"></i>
-                                </span>
-                                <input type="text" 
-                                       class="form-control" 
-                                       id="username" 
-                                       name="username" 
-                                       required 
-                                       autofocus
-                                       placeholder="نام کاربری یا ایمیل خود را وارد کنید">
-                                <div class="invalid-feedback"></div>
-                            </div>
+    <div class="auth-wrapper">
+        <div class="auth-header text-center mb-4">
+            <img src="assets/img/logo-light.png" alt="<?php echo APP_NAME; ?>" class="img-fluid mb-3" width="120">
+            <h1 class="h3 fw-normal text-white"><?php echo APP_NAME; ?></h1>
+        </div>
+
+        <div class="auth-box">
+            <div class="card shadow-lg">
+                <div class="card-body p-4">
+                    <h2 class="card-title text-center mb-4">ورود به حساب کاربری</h2>
+                    
+                    <form id="loginForm" method="post" class="needs-validation" novalidate autocomplete="off">
+                        <!-- نام کاربری -->
+                        <div class="form-floating mb-3">
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="username" 
+                                   name="username" 
+                                   placeholder="نام کاربری یا ایمیل"
+                                   required 
+                                   autofocus>
+                            <label for="username">
+                                <i class="fas fa-user me-2"></i>
+                                نام کاربری یا ایمیل
+                            </label>
+                            <div class="invalid-feedback"></div>
                         </div>
-                        
+
                         <!-- رمز عبور -->
-                        <div class="form-group mb-4">
-                            <label for="password" class="form-label">رمز عبور</label>
-                            <div class="input-group">
-                                <span class="input-group-text">
-                                    <i class="fas fa-lock"></i>
-                                </span>
-                                <input type="password" 
-                                       class="form-control" 
-                                       id="password" 
-                                       name="password" 
-                                       required
-                                       placeholder="رمز عبور خود را وارد کنید">
-                                <button type="button" class="input-group-text password-toggle" tabindex="-1">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <div class="invalid-feedback"></div>
-                            </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" 
+                                   class="form-control" 
+                                   id="password" 
+                                   name="password" 
+                                   placeholder="رمز عبور"
+                                   required>
+                            <label for="password">
+                                <i class="fas fa-lock me-2"></i>
+                                رمز عبور
+                            </label>
+                            <button type="button" class="btn btn-link password-toggle" tabindex="-1">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <div class="invalid-feedback"></div>
                         </div>
-                        
+
                         <!-- گزینه‌های اضافی -->
                         <div class="row mb-4">
                             <div class="col-7">
@@ -104,33 +97,38 @@ $meta['title'] = 'ورود به سیستم - ' . APP_NAME;
                                 </a>
                             </div>
                         </div>
-                        
+
                         <!-- دکمه ورود -->
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary w-100">
+                        <div class="d-grid mb-4">
+                            <button class="btn btn-primary" type="submit">
                                 <i class="fas fa-sign-in-alt me-2"></i>
                                 ورود به سیستم
                             </button>
                         </div>
+
+                        <!-- لینک ثبت نام -->
+                        <div class="text-center">
+                            <span>حساب کاربری ندارید؟</span>
+                            <a href="?page=register" class="text-decoration-none">ثبت‌نام کنید</a>
+                        </div>
                     </form>
                 </div>
             </div>
-            
-            <!-- لینک ثبت‌نام -->
-            <div class="text-center mt-4">
-                <p class="mb-0">
-                    هنوز ثبت‌نام نکرده‌اید؟ 
-                    <a href="?page=register" class="text-decoration-none">
-                        همین حالا ثبت‌نام کنید
-                    </a>
+
+            <!-- فوتر -->
+            <div class="auth-footer text-center mt-4">
+                <p class="text-white-50 mb-0">
+                    <?php echo APP_NAME . ' &copy; ' . date('Y'); ?>
                 </p>
             </div>
         </div>
     </div>
+
+    <!-- اسکریپت‌های CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
     
-    <!-- اسکریپت‌های ضروری -->
-    <script src="/mo/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/mo/assets/js/auth.js"></script>
+    <!-- اسکریپت‌های اختصاصی -->
+    <script src="assets/js/auth.js"></script>
 </body>
 </html>

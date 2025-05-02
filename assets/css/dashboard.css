@@ -1,12 +1,8 @@
-/* فونت ایران سنس */
-@font-face {
-    font-family: IRANSans;
-    src: url('../fonts/IRANSans.ttf') format('truetype');
-}
+
 
 /* تنظیمات کلی */
 body {
-    font-family: IRANSans, Tahoma, sans-serif;
+    font-family: 'Anjoman Max' !important;
     background-color: #f4f6f9;
     margin: 0;
     padding: 0;

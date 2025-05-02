@@ -89,7 +89,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>داشبورد - <?php echo APP_NAME; ?></title>
-    
+    <link rel="stylesheet" href="assets/fonts/anjoman/stylesheet.css">
     <!-- استایل‌ها -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -269,7 +269,7 @@ try {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="<?php echo BASE_URL; ?>assets/js/dashboard.js"></script>
+    <script src="<?php echo BASE_URL; ?>/assets/js/dashboard.js"></script>
     
     <script>
         // ساعت زنده

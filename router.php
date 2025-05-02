@@ -7,7 +7,10 @@
  * @since 2025-05-01
  */
 
-session_start();
+// قبل از شروع session چک کنیم که قبلاً شروع نشده باشه
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
     header('Content-Type: application/json');
 }

@@ -1,3 +1,6 @@
+<!-- لینک‌های سایدبار -->
+<link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/sidebar.css">
+<script src="<?php echo BASE_URL; ?>/assets/js/sidebar.js" defer></script>
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->

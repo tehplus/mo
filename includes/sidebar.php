@@ -1,57 +1,127 @@
-<!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index.php" class="brand-link">
-        <img src="assets/img/logo.png" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">حسابدار هوشمند</span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <!-- Sidebar user panel -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <div class="image">
-                <img src="assets/img/user.jpg" class="img-circle elevation-2" alt="User Image">
-            </div>
-            <div class="info">
-                <a href="#" class="d-block"><?php echo $_SESSION['username'] ?? 'کاربر مهمان'; ?></a>
-            </div>
+<?php
+// دریافت صفحه فعلی
+$current_page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
+?>
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="logo">
+            <img src="<?php echo BASE_URL; ?>/assets/images/logo.png" alt="<?php echo APP_NAME; ?>">
+            <span class="logo-text"><?php echo APP_NAME; ?></span>
         </div>
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-                <li class="nav-item">
-                    <a href="?page=dashboard" class="nav-link <?php echo $page == 'dashboard' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>داشبورد</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="?page=transactions" class="nav-link <?php echo $page == 'transactions' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-exchange-alt"></i>
-                        <p>تراکنش‌ها</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="?page=invoices" class="nav-link <?php echo $page == 'invoices' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-file-invoice"></i>
-                        <p>فاکتورها</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="?page=reports" class="nav-link <?php echo $page == 'reports' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-chart-pie"></i>
-                        <p>گزارشات</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="?page=settings" class="nav-link <?php echo $page == 'settings' ? 'active' : ''; ?>">
-                        <i class="nav-icon fas fa-cog"></i>
-                        <p>تنظیمات</p>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <button id="sidebar-toggle" class="sidebar-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
     </div>
-</aside>
+    
+    <div class="sidebar-user">
+        <div class="user-image">
+            <img src="<?php echo BASE_URL; ?>/assets/images/user-avatar.png" alt="کاربر">
+        </div>
+        <div class="user-info">
+            <div class="user-name"><?php echo $_SESSION['user_full_name'] ?? 'کاربر'; ?></div>
+            <div class="user-role">مدیر سیستم</div>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <ul class="nav-list">
+            <!-- داشبورد -->
+            <li class="nav-item <?php echo $current_page === 'dashboard' ? 'active' : ''; ?>">
+                <a href="?page=dashboard" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>داشبورد</span>
+                </a>
+            </li>
+
+            <!-- مدیریت مشتریان -->
+            <li class="nav-item <?php echo in_array($current_page, ['customers', 'add-customer']) ? 'active' : ''; ?>">
+                <a href="#" class="nav-link has-submenu">
+                    <i class="fas fa-users"></i>
+                    <span>مدیریت مشتریان</span>
+                    <i class="fas fa-chevron-left submenu-arrow"></i>
+                </a>
+                <ul class="submenu">
+                    <li class="<?php echo $current_page === 'customers' ? 'active' : ''; ?>">
+                        <a href="?page=customers">لیست مشتریان</a>
+                    </li>
+                    <li class="<?php echo $current_page === 'add-customer' ? 'active' : ''; ?>">
+                        <a href="?page=add-customer">افزودن مشتری</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- مدیریت محصولات -->
+            <li class="nav-item <?php echo in_array($current_page, ['products', 'add-product', 'categories']) ? 'active' : ''; ?>">
+                <a href="#" class="nav-link has-submenu">
+                    <i class="fas fa-box"></i>
+                    <span>مدیریت محصولات</span>
+                    <i class="fas fa-chevron-left submenu-arrow"></i>
+                </a>
+                <ul class="submenu">
+                    <li class="<?php echo $current_page === 'products' ? 'active' : ''; ?>">
+                        <a href="?page=products">لیست محصولات</a>
+                    </li>
+                    <li class="<?php echo $current_page === 'add-product' ? 'active' : ''; ?>">
+                        <a href="?page=add-product">افزودن محصول</a>
+                    </li>
+                    <li class="<?php echo $current_page === 'categories' ? 'active' : ''; ?>">
+                        <a href="?page=categories">دسته‌بندی‌ها</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- مدیریت فاکتورها -->
+            <li class="nav-item <?php echo in_array($current_page, ['invoices', 'add-invoice']) ? 'active' : ''; ?>">
+                <a href="#" class="nav-link has-submenu">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>مدیریت فاکتورها</span>
+                    <i class="fas fa-chevron-left submenu-arrow"></i>
+                </a>
+                <ul class="submenu">
+                    <li class="<?php echo $current_page === 'invoices' ? 'active' : ''; ?>">
+                        <a href="?page=invoices">لیست فاکتورها</a>
+                    </li>
+                    <li class="<?php echo $current_page === 'add-invoice' ? 'active' : ''; ?>">
+                        <a href="?page=add-invoice">صدور فاکتور</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- گزارشات -->
+            <li class="nav-item <?php echo strpos($current_page, 'report-') === 0 ? 'active' : ''; ?>">
+                <a href="#" class="nav-link has-submenu">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>گزارشات</span>
+                    <i class="fas fa-chevron-left submenu-arrow"></i>
+                </a>
+                <ul class="submenu">
+                    <li class="<?php echo $current_page === 'report-sales' ? 'active' : ''; ?>">
+                        <a href="?page=report-sales">گزارش فروش</a>
+                    </li>
+                    <li class="<?php echo $current_page === 'report-customers' ? 'active' : ''; ?>">
+                        <a href="?page=report-customers">گزارش مشتریان</a>
+                    </li>
+                    <li class="<?php echo $current_page === 'report-products' ? 'active' : ''; ?>">
+                        <a href="?page=report-products">گزارش محصولات</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- تنظیمات -->
+            <li class="nav-item <?php echo $current_page === 'settings' ? 'active' : ''; ?>">
+                <a href="?page=settings" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>تنظیمات</span>
+                </a>
+            </li>
+
+            <!-- خروج -->
+            <li class="nav-item">
+                <a href="?page=logout" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>خروج</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

@@ -4,19 +4,24 @@
  * 
  * @author tehplus
  * @version 1.0.0
- * @since 2025-05-02 05:15:43
+ * @since 2025-05-02 09:56:10
  */
 
-session_start(); // باید اینجا باشه قبل از هر چیزی
-define('BASE_PATH', __DIR__); // همینجا تعریف کنید
+// شروع session
+session_start();
 
-// لود فایل router
-require_once 'router.php';
+// تعریف مسیر اصلی
+define('BASE_PATH', __DIR__);
 
-// بررسی و اعمال ریدایرکت
-if (isset($_SESSION['redirect'])) {
-    $redirect_url = $_SESSION['redirect'];
-    unset($_SESSION['redirect']);
-    header('Location: ' . $redirect_url);
-    exit;
-}
+// لود فایل‌های اصلی به ترتیب اهمیت
+require_once BASE_PATH . '/includes/config.php';
+require_once BASE_PATH . '/includes/classes/Database.php';
+require_once BASE_PATH . '/includes/auth/functions.php';
+require_once BASE_PATH . '/includes/auth/permissions.php';
+require_once BASE_PATH . '/includes/classes/Router.php';
+
+// ایجاد نمونه از کلاس Router
+$router = new Router();
+
+// مسیریابی به صفحه درخواستی
+$router->route();

@@ -1,0 +1,6 @@
+[02-May-2025 08:01:10 Asia/Tehran] PHP Warning:  require_once(includes/auth/functions.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\mo\router.php on line 72
+[02-May-2025 08:01:10 Asia/Tehran] PHP Fatal error:  Uncaught Error: Failed opening required 'includes/auth/functions.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\mo\router.php:72
+Stack trace:
+#0 C:\xampp\htdocs\mo\index.php(11): require_once()
+#1 {main}
+  thrown in C:\xampp\htdocs\mo\router.php on line 72

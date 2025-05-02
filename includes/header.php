@@ -37,10 +37,7 @@ if (!defined('BASE_URL')) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-    <!-- کتابخانه‌های مورد نیاز دسته‌بندی -->
-    <link href="https://cdn.jsdelivr.net/npm/jstree@3.3.15/dist/themes/default/style.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" rel="stylesheet">
-    <link href="<?php echo BASE_URL; ?>/assets/css/categories.css" rel="stylesheet">
+
 
     <!-- استایل‌های اختصاصی -->
     <link href="<?php echo BASE_URL; ?>/assets/css/main.css" rel="stylesheet">
@@ -54,11 +51,7 @@ if (!defined('BASE_URL')) {
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- اسکریپت‌های دسته‌بندی -->
-    <script src="https://cdn.jsdelivr.net/npm/jstree@3.3.15/dist/jstree.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <!-- Sweetalert2 قبلاً اضافه شده -->
-    <script src="<?php echo BASE_URL; ?>/assets/js/categories.js"></script>
+    
 
 </head>
 <body class="<?php echo isset($body_class) ? $body_class : ''; ?>">

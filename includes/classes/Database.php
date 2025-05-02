@@ -2,8 +2,8 @@
 /**
  * کلاس اتصال به پایگاه داده
  * @author tehplus
- * @version 1.0.0
- * @since 2025-05-02 04:26:30
+ * @version 1.0.1
+ * @since 2025-05-02 10:37:59
  */
 
 class Database {
@@ -12,9 +12,12 @@ class Database {
     
     private function __construct() {
         try {
-            $dsn = "mysql:host=" . DB_HOST . 
-                   ";dbname=" . DB_NAME . 
-                   ";charset=" . DB_CHARSET;
+            $dsn = sprintf(
+                "mysql:host=%s;dbname=%s;charset=%s",
+                DB_HOST,
+                DB_NAME,
+                DB_CHARSET
+            );
             
             $options = [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -25,11 +28,16 @@ class Database {
             
             $this->conn = new PDO($dsn, DB_USER, DB_PASS, $options);
             
+            // تست اتصال
+            $this->conn->query('SELECT 1');
+            
         } catch(PDOException $e) {
             error_log(sprintf(
-                "[%s] Database Connection Error: %s", 
-                date('Y-m-d H:i:s'), 
-                $e->getMessage()
+                "[%s] Database Connection Error: %s in %s on line %d", 
+                date('Y-m-d H:i:s'),
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine()
             ));
             throw new Exception('خطا در اتصال به پایگاه داده');
         }
@@ -43,6 +51,9 @@ class Database {
     }
     
     public function getConnection() {
+        if ($this->conn === null) {
+            throw new Exception('اتصال به پایگاه داده برقرار نیست');
+        }
         return $this->conn;
     }
     

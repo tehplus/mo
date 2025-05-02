@@ -13,9 +13,19 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 }
 date_default_timezone_set('Asia/Tehran');
 
-require_once INCLUDE_PATH . '/config.php';
-require_once CLASS_PATH . '/Database.php';
-require_once AUTH_PATH . '/functions.php';
+// لود کردن تنظیمات و فایل‌های اصلی
+if (file_exists(BASE_PATH . '/includes/config.php')) {
+    require_once BASE_PATH . '/includes/config.php';
+}
+
+// لود کردن فایل‌های ضروری
+if (file_exists(BASE_PATH . '/includes/classes/Database.php')) {
+    require_once BASE_PATH . '/includes/classes/Database.php';
+}
+
+if (file_exists(BASE_PATH . '/includes/auth/functions.php')) {
+    require_once BASE_PATH . '/includes/auth/functions.php';
+}
 
 // متغیرهای سراسری برای قالب
 $meta = [

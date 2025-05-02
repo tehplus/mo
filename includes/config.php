@@ -27,8 +27,14 @@ define('SITE_KEY', 'mo-' . date('Y')); // کلید امنیتی سایت
 
 // تنظیمات مسیرها
 define('BASE_PATH', dirname(__DIR__)); // مسیر اصلی پروژه
-define('BASE_PATH', __DIR__ . '/..');            // آدرس پایه وب‌سایت
-define('UPLOADS_PATH', BASE_PATH . '/uploads');  // مسیر آپلود فایل‌ها
+// تنظیمات مسیرها - فقط اگر تعریف نشده باشند
+if (!defined('BASE_URL')) {
+    define('BASE_URL', '/mo');            // آدرس پایه وب‌سایت
+}
+
+if (!defined('UPLOADS_PATH')) {
+    define('UPLOADS_PATH', BASE_PATH . '/uploads');  // مسیر آپلود فایل‌ها
+}
 
 // نام و نسخه برنامه
 define('APP_NAME', 'سیستم حسابداری هوشمند');

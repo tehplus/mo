@@ -1,4 +1,9 @@
 <?php
+// اضافه کردن فایل‌های مورد نیاز
+require_once 'includes/config.php';
+require_once 'includes/classes/Database.php';
+require_once 'includes/auth/functions.php';
+
 // بررسی لاگین بودن کاربر
 if (!isset($_SESSION['user_id'])) {
     header('Location: ?page=login');
@@ -15,6 +20,7 @@ $recentNotifications = [];
 
 // دریافت آمار کلی
 try {
+    
     $database = Database::getInstance();
     $conn = $database->getConnection();
 
@@ -83,4 +89,4 @@ try {
 }
 
 // قالب HTML
-require_once 'templates/dashboard.html.php';
+require_once 'pages/templates/dashboard.html.php';

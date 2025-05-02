@@ -80,17 +80,18 @@ if ($is_public) {
             }
             break;
 
-        case 'dashboard':
+                case 'dashboard':
             if (!isset($_SESSION['user_id'])) {
                 header('Location: ?page=login');
                 exit;
             }
+            require_once 'includes/classes/Database.php';  // اضافه کردن این خط
             if (file_exists('pages/dashboard.php')) {
                 require_once 'pages/dashboard.php';
             } else {
                 die('خطا: صفحه داشبورد یافت نشد.');
             }
-        break;
+            break;
     }
 } else {
     // صفحات داشبورد

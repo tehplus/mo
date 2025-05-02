@@ -1,34 +1,42 @@
 /**
- * مدیریت دسته‌بندی‌ها
- * @author tehplus
- * @version 1.0.0
- * @since 2025-05-02
+ * اسکریپت‌های صفحه دسته‌بندی‌ها
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // آماده‌سازی درخت دسته‌بندی‌ها
-    initializeCategoriesTree();
+    // راه‌اندازی اولیه صفحه
+    initializePage();
     
-    // رویداد دکمه ذخیره دسته‌بندی جدید
-    document.getElementById('saveCategoryBtn').addEventListener('click', saveCategory);
+    // رویدادهای دکمه‌ها
+    setupEventListeners();
     
     // لود آمار اولیه
-    loadCategoriesStatistics();
+    loadStatistics();
 });
+
+/**
+ * راه‌اندازی اولیه صفحه
+ */
+function initializePage() {
+    // راه‌اندازی تولتیپ‌ها
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+    
+    // راه‌اندازی درخت دسته‌بندی‌ها
+    initializeTree();
+}
 
 /**
  * راه‌اندازی درخت دسته‌بندی‌ها
  */
-function initializeCategoriesTree() {
-    const treeContainer = document.getElementById('categoriesTree');
-    if (!treeContainer) return;
-    
-    // درخواست لیست دسته‌بندی‌ها
-    fetch(BASE_URL + '/api/categories/list')
+function initializeTree() {
+    fetch(baseUrl + '/api/categories/list')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                renderCategoriesTree(data.categories);
+                createJsTree(data.categories);
+                updateParentSelect(data.categories);
             } else {
                 showError('خطا در دریافت لیست دسته‌بندی‌ها');
             }
@@ -40,14 +48,11 @@ function initializeCategoriesTree() {
 }
 
 /**
- * نمایش درخت دسته‌بندی‌ها
+ * ایجاد درخت با jsTree
  */
-function renderCategoriesTree(categories) {
-    const treeContainer = document.getElementById('categoriesTree');
-    if (!categories || !treeContainer) return;
-    
-    // اینجا از کتابخانه jstree استفاده می‌کنیم
-    $(treeContainer).jstree({
+function createJsTree(categories) {
+    $('#categoriesTree').jstree('destroy');
+    $('#categoriesTree').jstree({
         'core': {
             'data': categories,
             'themes': {
@@ -55,9 +60,29 @@ function renderCategoriesTree(categories) {
                 'responsive': true
             }
         },
-        'plugins': ['dnd', 'search', 'state', 'types', 'wholerow']
+        'plugins': ['wholerow', 'search', 'state'],
+        'search': {
+            'show_only_matches': true
+        }
     }).on('select_node.jstree', function(e, data) {
         loadCategoryDetails(data.node.id);
+    });
+}
+
+/**
+ * بروزرسانی لیست والدین در مودال
+ */
+function updateParentSelect(categories) {
+    const select = document.getElementById('categoryParent');
+    select.innerHTML = '<option value="0">بدون والد (دسته اصلی)</option>';
+    
+    categories.forEach(category => {
+        if (category.parent === '#') {
+            const option = document.createElement('option');
+            option.value = category.id;
+            option.textContent = category.text;
+            select.appendChild(option);
+        }
     });
 }
 
@@ -65,7 +90,7 @@ function renderCategoriesTree(categories) {
  * لود اطلاعات یک دسته‌بندی
  */
 function loadCategoryDetails(categoryId) {
-    fetch(BASE_URL + '/api/categories/get/' + categoryId)
+    fetch(baseUrl + '/api/categories/get/' + categoryId)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -84,15 +109,21 @@ function loadCategoryDetails(categoryId) {
  * نمایش اطلاعات دسته‌بندی
  */
 function showCategoryDetails(category) {
-    const detailsContainer = document.getElementById('categoryDetails');
-    if (!detailsContainer) return;
+    const container = document.getElementById('categoryDetails');
     
-    detailsContainer.innerHTML = `
+    const statusBadge = category.status 
+        ? '<span class="badge bg-success">فعال</span>' 
+        : '<span class="badge bg-danger">غیرفعال</span>';
+        
+    container.innerHTML = `
         <div class="category-details">
-            <h4 class="mb-3">${category.name}</h4>
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="m-0">${category.name}</h4>
+                ${statusBadge}
+            </div>
             <div class="row">
                 <div class="col-md-6">
-                    <p><strong>وضعیت:</strong> ${category.status ? 'فعال' : 'غیرفعال'}</p>
+                    <p><strong>والد:</strong> ${category.parent_name || 'ندارد'}</p>
                     <p><strong>تعداد محصولات:</strong> ${category.products_count}</p>
                 </div>
                 <div class="col-md-6">
@@ -105,10 +136,10 @@ function showCategoryDetails(category) {
                 <p>${category.description || 'بدون توضیحات'}</p>
             </div>
             <div class="mt-4">
-                <button class="btn btn-primary btn-sm" onclick="editCategory(${category.id})">
+                <button class="btn btn-warning btn-sm" onclick="editCategory(${category.id})">
                     <i class="fas fa-edit"></i> ویرایش
                 </button>
-                <button class="btn btn-danger btn-sm" onclick="deleteCategory(${category.id})">
+                <button class="btn btn-danger btn-sm" onclick="confirmDelete(${category.id})">
                     <i class="fas fa-trash"></i> حذف
                 </button>
             </div>
@@ -117,10 +148,10 @@ function showCategoryDetails(category) {
 }
 
 /**
- * لود آمار دسته‌بندی‌ها
+ * لود آمار
  */
-function loadCategoriesStatistics() {
-    fetch(BASE_URL + '/api/categories/stats')
+function loadStatistics() {
+    fetch(baseUrl + '/api/categories/stats')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -134,10 +165,24 @@ function loadCategoriesStatistics() {
  * بروزرسانی آمار
  */
 function updateStatistics(stats) {
-    document.getElementById('mainCategoriesCount').textContent = stats.main_categories || 0;
-    document.getElementById('subCategoriesCount').textContent = stats.sub_categories || 0;
-    document.getElementById('totalProductsCount').textContent = stats.total_products || 0;
-    document.getElementById('inactiveCategoriesCount').textContent = stats.inactive_categories || 0;
+    document.getElementById('mainCategoriesCount').textContent = stats.main_categories;
+    document.getElementById('subCategoriesCount').textContent = stats.sub_categories;
+    document.getElementById('totalProductsCount').textContent = stats.total_products;
+    document.getElementById('inactiveCategoriesCount').textContent = stats.inactive_categories;
+}
+
+/**
+ * تنظیم رویدادها
+ */
+function setupEventListeners() {
+    // دکمه ذخیره دسته‌بندی جدید
+    document.getElementById('saveCategoryBtn').addEventListener('click', saveCategory);
+    
+    // دکمه تازه‌سازی درخت
+    document.querySelector('.card-tools .btn-tool').addEventListener('click', function() {
+        initializeTree();
+        loadStatistics();
+    });
 }
 
 /**
@@ -151,7 +196,7 @@ function saveCategory() {
         status: document.getElementById('categoryStatus').checked
     };
     
-    fetch(BASE_URL + '/api/categories/create', {
+    fetch(baseUrl + '/api/categories/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -165,9 +210,12 @@ function saveCategory() {
             const modal = bootstrap.Modal.getInstance(document.getElementById('addCategoryModal'));
             modal.hide();
             
+            // پاک کردن فرم
+            document.getElementById('addCategoryForm').reset();
+            
             // بروزرسانی درخت و آمار
-            initializeCategoriesTree();
-            loadCategoriesStatistics();
+            initializeTree();
+            loadStatistics();
             
             showSuccess('دسته‌بندی با موفقیت ایجاد شد');
         } else {
@@ -202,4 +250,38 @@ function showError(message) {
         text: message,
         confirmButtonText: 'تایید'
     });
+}
+
+/**
+ * تایید حذف دسته‌بندی
+ */
+function confirmDelete(categoryId) {
+    Swal.fire({
+        title: 'آیا مطمئن هستید؟',
+        text: 'این دسته‌بندی و تمام زیردسته‌های آن حذف خواهند شد',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'بله، حذف شود',
+        cancelButtonText: 'انصراف'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            deleteCategory(categoryId);
+        }
+    });
+}
+
+/**
+ * حذف دسته‌بندی
+ */
+function deleteCategory(categoryId) {
+    // این قسمت رو بعداً پیاده‌سازی می‌کنیم
+    showError('این قابلیت هنوز پیاده‌سازی نشده است');
+}
+
+/**
+ * ویرایش دسته‌بندی
+ */
+function editCategory(categoryId) {
+    // این قسمت رو بعداً پیاده‌سازی می‌کنیم
+    showError('این قابلیت هنوز پیاده‌سازی نشده است');
 }

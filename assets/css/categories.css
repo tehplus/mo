@@ -1,53 +1,131 @@
 /**
- * استایل‌های صفحه مدیریت دسته‌بندی‌ها
+ * استایل‌های صفحه دسته‌بندی‌ها
  */
 
-/* کارت‌های آمار */
+/* استایل درخت دسته‌بندی */
+#categoriesTree {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+/* استایل کارت‌های آمار */
 .small-box {
     border-radius: 0.25rem;
     box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
     display: block;
     margin-bottom: 20px;
     position: relative;
-    color: #fff;
 }
 
-.small-box .inner {
+.small-box > .inner {
     padding: 10px;
 }
 
-.small-box .inner h3 {
+.small-box h3 {
     font-size: 2.2rem;
-    font-weight: bold;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    padding: 0;
+    white-space: nowrap;
+}
+
+.small-box p {
+    font-size: 1rem;
     margin: 0;
 }
 
 .small-box .icon {
     color: rgba(0,0,0,.15);
     z-index: 0;
-    font-size: 70px;
-    padding: 10px;
+}
+
+.small-box .icon > i {
+    font-size: 90px;
     position: absolute;
     left: 15px;
     top: 15px;
+    transition: transform .3s linear;
 }
 
-/* درخت دسته‌بندی‌ها */
-#categoriesTree {
-    max-height: 400px;
-    overflow-y: auto;
-    padding: 10px;
+.small-box:hover .icon > i {
+    transform: scale(1.1);
 }
 
-/* دکمه‌های عملیات */
-.btn-tool {
-    background: transparent;
-    color: #adb5bd;
-    font-size: .875rem;
-    margin: -10px 0;
-    padding: .25rem .5rem;
+/* رنگ‌های پس‌زمینه */
+.bg-info {
+    background-color: #17a2b8 !important;
+    color: #fff !important;
 }
 
-.btn-tool:hover {
+.bg-success {
+    background-color: #28a745 !important;
+    color: #fff !important;
+}
+
+.bg-warning {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+}
+
+.bg-danger {
+    background-color: #dc3545 !important;
+    color: #fff !important;
+}
+
+/* استایل جزئیات دسته‌بندی */
+.category-details {
+    padding: 15px;
+}
+
+.category-details h4 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.category-details .btn {
+    margin-right: 10px;
+}
+
+/* استایل مودال */
+.modal-header {
+    border-bottom: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+}
+
+.modal-footer {
+    border-top: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+}
+
+/* رسپانسیو */
+@media (max-width: 767.98px) {
+    .small-box {
+        text-align: center;
+    }
+    
+    .small-box .icon {
+        display: none;
+    }
+    
+    .small-box h3 {
+        font-size: 1.8rem;
+    }
+}
+
+/* استایل‌های jsTree */
+.jstree-default .jstree-icon {
     color: #495057;
+}
+
+.jstree-default .jstree-anchor {
+    color: #212529;
+    padding: 2px 5px;
+}
+
+.jstree-default .jstree-wholerow-clicked {
+    background: #e9ecef;
+}
+
+.jstree-default .jstree-clicked {
+    color: #007bff;
 }

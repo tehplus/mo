@@ -162,8 +162,18 @@ $page_css = 'categories';
         </div>
     </div>
     <!-- کتابخانه‌های مورد نیاز -->
+<!-- کتابخانه‌ها و استایل‌های مورد نیاز -->
+<link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/categories.css">
 <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/plugins/jstree/themes/default/style.min.css">
+<link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/plugins/sweetalert2/sweetalert2.min.css">
+
 <script src="<?php echo BASE_URL; ?>/assets/plugins/jstree/jstree.min.js"></script>
 <script src="<?php echo BASE_URL; ?>/assets/plugins/sweetalert2/sweetalert2.all.min.js"></script>
+
+<!-- اسکریپت‌های مخصوص صفحه -->
+<script>
+// تعریف متغیرهای سراسری
+const baseUrl = '<?php echo BASE_URL; ?>';
+</script>
 <script src="<?php echo BASE_URL; ?>/assets/js/categories.js"></script>
 </div>

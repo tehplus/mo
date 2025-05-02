@@ -64,15 +64,20 @@ if ($is_public) {
             } else {
                 die('خطا: صفحه ثبت نام یافت نشد.');
             }
-            break;
+        break;
             
         case 'login':
-            if (file_exists('pages/auth/login.php')) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                require_once 'includes/config.php';
+                require_once 'includes/classes/Database.php';
+                require_once 'includes/auth/login_handler.php';
+                exit;
+            } else if (file_exists('pages/auth/login.php')) {
                 require_once 'pages/auth/login.php';
             } else {
                 die('خطا: صفحه ورود یافت نشد.');
             }
-            break;
+        break;
     }
 } else {
     // صفحات داشبورد

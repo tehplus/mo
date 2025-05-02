@@ -24,11 +24,12 @@ $meta['title'] = 'ورود به سیستم - ' . APP_NAME;
     <title><?php echo $meta['title']; ?></title>
     
     <!-- فونت‌های ایران‌سنس -->
-    <link href="/mo/assets/css/fontiran.css" rel="stylesheet">
+    <link href="assets/fonts/anjoman/stylesheet.css" rel="stylesheet">
     
     <!-- استایل‌های اصلی -->
-    <link rel="stylesheet" href="/mo/assets/css/bootstrap.rtl.min.css">
-    <link rel="stylesheet" href="/mo/assets/css/login.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
+
+    <link rel="stylesheet" href="assets/css/login.css">
     
     <!-- فونت‌آیکون‌ها -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">

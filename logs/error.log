@@ -82,3 +82,27 @@ Stack trace:
 #1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
 #2 {main}
   thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
+[02-May-2025 11:42:21 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
+Stack trace:
+#0 C:\xampp\htdocs\mo\router.php(127): require_once()
+#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
+[02-May-2025 11:43:41 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
+Stack trace:
+#0 C:\xampp\htdocs\mo\router.php(121): require_once()
+#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
+[02-May-2025 11:43:51 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
+Stack trace:
+#0 C:\xampp\htdocs\mo\router.php(121): require_once()
+#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12
+[02-May-2025 11:43:59 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined function redirect() in C:\xampp\htdocs\mo\pages\categories\index.php:12
+Stack trace:
+#0 C:\xampp\htdocs\mo\router.php(121): require_once()
+#1 C:\xampp\htdocs\mo\index.php(14): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\mo\pages\categories\index.php on line 12

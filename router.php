@@ -107,13 +107,7 @@ if ($is_public) {
             }
             break;
             
-            case 'categories':
-            if (!checkUserPermission('manage_categories')) {
-                redirect('error/403');
-            }
-            $pageTitle = 'مدیریت دسته‌بندی‌ها';
-            require_once 'pages/templates/categories.php';
-            break;
+            
             }
 } else {
     // صفحات داشبورد

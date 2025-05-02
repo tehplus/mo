@@ -23,10 +23,11 @@ $meta = [
 ];
 
 // لیست صفحات مجاز برای دسترسی عمومی
-$public_pages = ['home', 'register', 'login'];
+$public_pages = ['home', 'register', 'login', 'dashboard'];
 
 // دریافت صفحه درخواستی
-$page = isset($_GET['page']) ? strtolower(trim($_GET['page'])) : 'home';
+$page = isset($_GET['page']) ? strtolower(trim($_GET['page'])) : (isset($_SESSION['user_id']) ? 'dashboard' : 'home');
+
 
 // اگر کاربر لاگین نکرده و صفحه عمومی نیست
 if (!in_array($page, $public_pages) && !isset($_SESSION['user_id'])) {
@@ -39,7 +40,7 @@ $page = preg_replace('/[^a-z0-9\-_]/', '', $page);
 
 // اگر صفحه خالی شد
 if (empty($page)) {
-    $page = 'home';
+    $page = isset($_SESSION['user_id']) ? 'dashboard' : 'home';
 }
 
 // بررسی نوع صفحه
@@ -78,6 +79,18 @@ if ($is_public) {
                 die('خطا: صفحه ورود یافت نشد.');
             }
             break;
+
+        case 'dashboard':
+            if (!isset($_SESSION['user_id'])) {
+                header('Location: ?page=login');
+                exit;
+            }
+            if (file_exists('pages/dashboard.php')) {
+                require_once 'pages/dashboard.php';
+            } else {
+                die('خطا: صفحه داشبورد یافت نشد.');
+            }
+        break;
     }
 } else {
     // صفحات داشبورد

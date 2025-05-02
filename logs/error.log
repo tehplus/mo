@@ -1,1 +1,6 @@
-[02-May-2025 08:05:17 Asia/Tehran] Database Error in login_handler.php: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'status' in 'where clause'
+[02-May-2025 08:16:49 Asia/Tehran] PHP Fatal error:  Uncaught Error: Class "Database" not found in C:\xampp\htdocs\mo\pages\dashboard.php:18
+Stack trace:
+#0 C:\xampp\htdocs\mo\router.php(89): require_once()
+#1 C:\xampp\htdocs\mo\index.php(11): require_once('C:\\xampp\\htdocs...')
+#2 {main}
+  thrown in C:\xampp\htdocs\mo\pages\dashboard.php on line 18

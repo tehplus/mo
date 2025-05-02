@@ -53,7 +53,12 @@ try {
             ]);
             exit;
         }
-        
+         // جستجوی کاربر
+        $stmt = $conn->prepare("
+            SELECT id, username, email, password, full_name 
+            FROM users 
+            WHERE (username = ? OR email = ?)
+        ");
         $stmt->execute([$username, $username]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         

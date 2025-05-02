@@ -1,0 +1,7 @@
+RewriteEngine On
+
+# قوانین دسته‌بندی‌ها
+RewriteRule ^categories/list$ categories/index.php?action=list [L,QSA]
+RewriteRule ^categories/get/(\d+)$ categories/index.php?action=get&id=$1 [L,QSA]
+RewriteRule ^categories/stats$ categories/index.php?action=stats [L,QSA]
+RewriteRule ^categories/create$ categories/index.php?action=create [L,QSA]

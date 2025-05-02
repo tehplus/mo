@@ -1,11 +1,10 @@
 <?php
 /**
  * تنظیمات مسیریابی برنامه
- * در این فایل تمام مسیرهای برنامه تعریف می‌شوند
  * 
  * @author tehplus
  * @version 1.0.0
- * @since 2025-05-02 09:49:07
+ * @since 2025-05-02 13:30:00
  */
 
 return [
@@ -32,7 +31,7 @@ return [
     'dashboard' => [
         'dashboard' => [
             'title' => 'داشبورد',
-            'path' => 'pages/dashboard/index.php',
+            'path' => 'pages/dashboard.php',
             'icon' => 'fas fa-tachometer-alt',
             'permission' => 'view_dashboard'
         ],
@@ -47,30 +46,6 @@ return [
             'path' => 'pages/products/index.php',
             'icon' => 'fas fa-box',
             'permission' => 'manage_products'
-        ],
-        'customers' => [
-            'title' => 'مدیریت مشتریان',
-            'path' => 'pages/customers/index.php',
-            'icon' => 'fas fa-users',
-            'permission' => 'manage_customers'
-        ],
-        'invoices' => [
-            'title' => 'مدیریت فاکتورها',
-            'path' => 'pages/invoices/index.php',
-            'icon' => 'fas fa-file-invoice',
-            'permission' => 'manage_invoices'
-        ],
-        'reports' => [
-            'title' => 'گزارشات',
-            'path' => 'pages/reports/index.php',
-            'icon' => 'fas fa-chart-bar',
-            'permission' => 'view_reports'
-        ],
-        'settings' => [
-            'title' => 'تنظیمات',
-            'path' => 'pages/settings/index.php',
-            'icon' => 'fas fa-cog',
-            'permission' => 'manage_settings'
         ]
     ],
     

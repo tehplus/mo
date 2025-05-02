@@ -115,11 +115,22 @@ class Router
             return true;
         }
 
-        // بررسی دسترسی با استفاده از تابع checkUserPermission
-        if (function_exists('checkUserPermission')) {
-            return checkUserPermission("access_{$page}");
+        // اگر کاربر لاگین نکرده
+        if (!isset($_SESSION['user_id'])) {
+            return false;
         }
 
+        // اگر کاربر ادمین است
+        if (isset($_SESSION['is_admin']) && $_SESSION['is_admin']) {
+            return true;
+        }
+
+        // بررسی دسترسی صفحه categories
+        if ($page === 'categories') {
+            return checkUserPermission('manage_categories');
+        }
+
+        // برای سایر صفحات داشبورد
         return true;
     }
 
@@ -165,12 +176,14 @@ class Router
     {
         $error_file = "pages/error/{$error}.php";
         if (file_exists(BASE_PATH . '/' . $error_file)) {
+            header("HTTP/1.1 {$error} Error");
             $this->renderPage($error, $error_file, 'error');
         } else {
-            die("خطای سیستم: {$error}");
+            header("HTTP/1.1 500 Internal Server Error");
+            echo "<h1>خطای سیستم: {$error}</h1>";
+            echo "<p>فایل خطای مورد نظر یافت نشد.</p>";
         }
     }
-
     /**
      * ریدایرکت به صفحه دیگر
      */

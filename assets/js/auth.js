@@ -127,6 +127,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 fetch('?page=register', {
                     method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
                     body: formData
                 })
                     fetch('?page=register', {

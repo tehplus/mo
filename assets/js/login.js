@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // ارسال درخواست به سرور
         const formData = new FormData(this);
         
-        fetch('?page=login', {
+        fetch('includes/auth/login_handler.php', {
             method: 'POST',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'

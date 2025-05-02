@@ -39,6 +39,10 @@ class Router
     public function route() 
     {
         try {
+            if (isset($_GET['page']) && $_GET['page'] === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            require_once BASE_PATH . '/includes/auth/login_handler.php';
+            return;
+                }
             // دریافت صفحه درخواستی
             $page = isset($_GET['page']) ? $this->cleanPageName($_GET['page']) : 'dashboard';
             

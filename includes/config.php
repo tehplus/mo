@@ -5,9 +5,7 @@
  * @version 1.0.0
  * @since 2025-05-01
  */
-if (!defined('BASE_URL')) {
-    define('BASE_URL', 'http://localhost/mo'); // آدرس کامل با http
-}
+
 // نمایش خطاها در محیط توسعه
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
@@ -32,10 +30,7 @@ define('SITE_KEY', 'mo-' . date('Y')); // کلید امنیتی سایت
 if (!defined('BASE_PATH')) {
     define('BASE_PATH', dirname(__DIR__)); // مسیر اصلی پروژه
 }
-// تنظیمات مسیرها - فقط اگر تعریف نشده باشند
-if (!defined('BASE_URL')) {
-    define('BASE_URL', '/mo');            // آدرس پایه وب‌سایت
-}
+
 
 if (!defined('UPLOADS_PATH')) {
     define('UPLOADS_PATH', BASE_PATH . '/uploads');  // مسیر آپلود فایل‌ها
@@ -44,7 +39,7 @@ if (!defined('UPLOADS_PATH')) {
 // نام و نسخه برنامه
 define('APP_NAME', 'سیستم حسابداری هوشمند');
 define('APP_VERSION', '1.0.0');
-
+define('BASE_URL', 'http://localhost/mo');
 // تنظیمات ایمیل (اختیاری)
 define('MAIL_HOST', 'smtp.gmail.com');
 define('MAIL_PORT', 587);

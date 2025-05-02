@@ -1,0 +1,24 @@
+[02-May-2025 13:51:05 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined method Database::prepare() in C:\xampp\htdocs\mo\includes\auth\login_handler.php:76
+Stack trace:
+#0 C:\xampp\htdocs\mo\includes\classes\Router.php(43): require_once()
+#1 C:\xampp\htdocs\mo\index.php(27): Router->route()
+#2 {main}
+  thrown in C:\xampp\htdocs\mo\includes\auth\login_handler.php on line 76
+[02-May-2025 13:52:52 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined method Database::prepare() in C:\xampp\htdocs\mo\includes\auth\login_handler.php:76
+Stack trace:
+#0 C:\xampp\htdocs\mo\includes\classes\Router.php(43): require_once()
+#1 C:\xampp\htdocs\mo\index.php(27): Router->route()
+#2 {main}
+  thrown in C:\xampp\htdocs\mo\includes\auth\login_handler.php on line 76
+[02-May-2025 13:53:17 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined method Database::prepare() in C:\xampp\htdocs\mo\includes\auth\login_handler.php:76
+Stack trace:
+#0 C:\xampp\htdocs\mo\includes\classes\Router.php(43): require_once()
+#1 C:\xampp\htdocs\mo\index.php(27): Router->route()
+#2 {main}
+  thrown in C:\xampp\htdocs\mo\includes\auth\login_handler.php on line 76
+[02-May-2025 13:53:31 Asia/Tehran] PHP Fatal error:  Uncaught Error: Call to undefined method Database::prepare() in C:\xampp\htdocs\mo\includes\auth\login_handler.php:76
+Stack trace:
+#0 C:\xampp\htdocs\mo\includes\classes\Router.php(43): require_once()
+#1 C:\xampp\htdocs\mo\index.php(27): Router->route()
+#2 {main}
+  thrown in C:\xampp\htdocs\mo\includes\auth\login_handler.php on line 76

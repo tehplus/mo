@@ -97,7 +97,7 @@ try {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
-    <?php include BASE_PATH . 'includes/sidebar.php'; ?>
+    <?php require_once BASE_PATH . '/includes/sidebar.php'; ?>
 
     <div class="dashboard-container">
         <div class="dashboard-header">

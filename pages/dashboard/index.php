@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . '/../../includes/config.php';
+require_once __DIR__ . '/../../includes/classes/Database.php';
+require_once __DIR__ . '/../../includes/auth/functions.php';
+
 // بررسی دسترسی
 if (!isset($_SESSION['user_id'])) {
     header('Location: ?page=login');

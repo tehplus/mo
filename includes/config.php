@@ -11,7 +11,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 ini_set('error_log', dirname(__DIR__) . '/logs/error.log');
-
+define('APP_URL', 'http://localhost/mo');
 // تنظیمات دیتابیس
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'mo');
@@ -27,7 +27,7 @@ define('SITE_KEY', 'mo-' . date('Y')); // کلید امنیتی سایت
 
 // تنظیمات مسیرها
 define('BASE_PATH', dirname(__DIR__)); // مسیر اصلی پروژه
-define('BASE_URL', '/mo');            // آدرس پایه وب‌سایت
+define('BASE_PATH', __DIR__ . '/..');            // آدرس پایه وب‌سایت
 define('UPLOADS_PATH', BASE_PATH . '/uploads');  // مسیر آپلود فایل‌ها
 
 // نام و نسخه برنامه

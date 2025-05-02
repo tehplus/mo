@@ -13,8 +13,9 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 }
 date_default_timezone_set('Asia/Tehran');
 
-// لود کردن تنظیمات
-require_once 'includes/config.php';
+require_once INCLUDE_PATH . '/config.php';
+require_once CLASS_PATH . '/Database.php';
+require_once AUTH_PATH . '/functions.php';
 
 // متغیرهای سراسری برای قالب
 $meta = [
@@ -102,7 +103,7 @@ if ($is_public) {
     
     $page_file = "pages/$page/index.php";
     if (file_exists($page_file)) {
-        require_once $page_file;
+    require_once $page_file;
     } else {
         echo '<div class="content-header">
                 <div class="container-fluid">

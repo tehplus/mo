@@ -1,4 +1,12 @@
 <?php
+
+// تعریف مسیرهای اصلی
+define('BASE_PATH', __DIR__);
+define('INCLUDE_PATH', BASE_PATH . '/includes');
+define('CLASS_PATH', INCLUDE_PATH . '/classes');
+define('AUTH_PATH', INCLUDE_PATH . '/auth');
+define('PAGE_PATH', BASE_PATH . '/pages');
+
 /**
  * فایل اصلی برنامه - نقطه ورود تمام درخواست‌ها
  * 
